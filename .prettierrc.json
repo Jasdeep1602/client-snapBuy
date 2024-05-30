@@ -1,0 +1,11 @@
+{
+  "trailingComma": "es5",
+  "tabWidth": 2,
+  "semi": true,
+  "singleQuote": true,
+  "printWidth": 100,
+  "importOrder": ["^(^react$|@react|react|^recoil$)", "<THIRD_PARTY_MODULES>", "^@/(.*)$", "^[./]"],
+  "importOrderGroupNamespaceSpecifiers": true,
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}
