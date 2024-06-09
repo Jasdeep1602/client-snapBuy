@@ -48,62 +48,62 @@ const heroapi = {
   ],
 };
 
-// const popularsales = {
-//   title: 'Popular Sales',
-//   items: [
-//     {
-//       id: '0p0x1',
-//       title: 'Nike Addapt BB 2.0',
-//       text: 'MEN Running Shoes',
-//       rating: '4.9',
-//       btn: 'Buy Now',
-//       img: psale2,
-//       price: '200',
-//       color: 'from-blue-600 to-blue-500',
-//       shadow: 'shadow-lg shadow-blue-500',
-//     },
-//     {
-//       id: '0p0x2',
-//       title: 'Nike Martine Rose',
-//       text: 'MEN Running Shoes',
-//       rating: '4.5',
-//       btn: 'Buy Now',
-//       img: psale1,
-//       price: '200',
-//       color: 'from-red-500 to-rose-500',
-//       shadow: 'shadow-lg shadow-rose-500',
-//     },
-//     {
-//       id: '0p0x3',
-//       title: 'Nike Smart Shoe 2.0',
-//       text: 'MEN Running Shoes',
-//       rating: '5+',
-//       btn: 'Buy Now',
-//       img: psale3,
-//       price: '200',
-//       color: 'from-violet-500 to-indigo-500',
-//       shadow: 'shadow-lg shadow-violet-500',
-//     },
-//   ],
-// }
+const popularSales = {
+  title: 'Popular Sales',
+  items: [
+    {
+      id: '0p0x1',
+      titleinner: 'Nike Addapt BB 2.0',
+      text: 'MEN Running Shoes',
+      rating: '4.9',
+      btn: 'Buy Now',
+      img: '/nike-adapt-bb.png',
+      price: '200',
+      colorbg: 'from-blue-600 to-blue-500',
+      shadowbg: 'shadow-lg shadow-blue-500',
+    },
+    {
+      id: '0p0x2',
+      titleinner: 'Nike Martine Rose',
+      text: 'MEN Running Shoes',
+      rating: '4.5',
+      btn: 'Buy Now',
+      img: '/nike-air-red.png',
+      price: '200',
+      colorbg: 'from-red-500 to-rose-500',
+      shadowbg: 'shadow-lg shadow-rose-500',
+    },
+    {
+      id: '0p0x3',
+      titleinner: 'Nike Smart Shoe 2.0',
+      text: 'MEN Running Shoes',
+      rating: '5+',
+      btn: 'Buy Now',
+      img: '/nike-adapt-bb-smart.png',
+      price: '200',
+      colorbg: 'from-violet-500 to-indigo-500',
+      shadowbg: 'shadow-lg shadow-violet-500',
+    },
+  ],
+};
 
-// const highlight = {
-//   heading: 'HIGHLIGHTS',
-//   title: 'NIKE AIR WITH LIMITLESS CHOICES',
-//   text: 'Our Purpose is to move the world forward. We take action by building community, protecting our planet and increasing access to sport.',
-//   btn: 'Explore More',
-//   url: 'https://www.nike.com/launch/t/nocta-hot-step-black-gold',
-//   img: hightlightimg,
-// }
+const highlightAPI = {
+  heading: 'HIGHLIGHTS',
+  title: 'NIKE AIR WITH LIMITLESS CHOICES',
+  text: 'Our Purpose is to move the world forward. We take action by building community, protecting our planet and increasing access to sport.',
+  btn: 'Explore More',
+  url: 'https://www.nike.com/launch/t/nocta-hot-step-black-gold',
+  img: '/hightlightimg.png',
+};
 
-// const sneaker = {
-//   heading: 'FEATURED',
-//   title: 'NIKE SNEAKERS AIR LANCING SHOES',
-//   text: 'The radiance lives on Nike Sneakers Air Lancing Shoes, the basket ball OG that puts a fresh spin on what you know best: durably stitched overlays, clean finishes and the perfect amount of flash to make you shine.',
-//   btn: 'Explore More',
-//   url: 'https://sneakernews.com/2022/03/21/nike-lebron-2-retro-white-midnight-navy-varsity-crimson-dr0826-100/',
-//   img: sneakershoe,
-// }
+const sneakerAPI = {
+  heading: 'FEATURED',
+  title: 'NIKE SNEAKERS AIR LANCING SHOES',
+  text: 'The radiance lives on Nike Sneakers Air Lancing Shoes, the basket ball OG that puts a fresh spin on what you know best: durably stitched overlays, clean finishes and the perfect amount of flash to make you shine.',
+  btn: 'Explore More',
+  url: 'https://sneakernews.com/2022/03/21/nike-lebron-2-retro-white-midnight-navy-varsity-crimson-dr0826-100/',
+  img: '/sneaker.png',
+};
 
 // const toprateslaes = {
 //   title: 'Top Rated Sales',
@@ -339,44 +339,42 @@ const heroapi = {
 //   ],
 // }
 
-// const footerAPI = {
-//   titles: [
-//     { title: 'About Nike' },
-//     { title: 'Get Help' },
-//     { title: 'Company' },
-//   ],
-//   links: [
-//     [
-//       { link: 'News' },
-//       { link: 'Careers' },
-//       { link: 'Investors' },
-//       { link: 'Prupose' },
-//       { link: 'Sustainability' },
-//     ],
-//     [
-//       { link: 'Order Status' },
-//       { link: 'Shipping & Delivery' },
-//       { link: 'Payment Options' },
-//       { link: 'Gift Card Balance' },
-//       { link: 'Contact Us' },
-//       { link: 'FAQ' },
-//       { link: 'Blog' },
-//     ],
-//     [
-//       { link: 'Gift Cards' },
-//       { link: 'Promotions' },
-//       { link: 'Find A Store' },
-//       { link: 'Signup' },
-//       { link: 'Nike Jouneral' },
-//       { link: 'Send Us Feeback' },
-//     ],
-//   ],
-// }
+const footerAPI = {
+  titles: [{ title: 'About Nike' }, { title: 'Get Help' }, { title: 'Company' }],
+  links: [
+    [
+      { link: 'News' },
+      { link: 'Careers' },
+      { link: 'Investors' },
+      { link: 'Purpose' },
+      { link: 'Sustainability' },
+    ],
+    [
+      { link: 'Order Status' },
+      { link: 'Shipping & Delivery' },
+      { link: 'Payment Options' },
+      { link: 'Gift Card Balance' },
+      { link: 'Contact Us' },
+      { link: 'FAQ' },
+      { link: 'Blog' },
+    ],
+    [
+      { link: 'Gift Cards' },
+      { link: 'Promotions' },
+      { link: 'Find A Store' },
+      { link: 'Signup' },
+      { link: 'Nike Journal' },
+      { link: 'Send Us Feedback' },
+    ],
+  ],
+};
 
-export default heroapi;
-// footerAPI,
-// story,
-// sneaker,
-// highlight,
-// toprateslaes,
-// popularsales,
+export {
+  heroapi,
+  footerAPI,
+  // story,
+  sneakerAPI,
+  highlightAPI,
+  // toprateslaes,
+  popularSales,
+};

@@ -2,7 +2,10 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import heroapi from '@/data/data';
+import { heroapi, footerAPI, highlightAPI, sneakerAPI, popularSales } from '@/data/data';
+import Footer from '@/components/Footer';
+import Highlight from '@/components/Highlight';
+import Sales from '@/components/Sales';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -20,7 +23,11 @@ export default function RootLayout({
         <Header />
         <main className="flex flex-col gap-16 relative">
           <Hero heroapi={heroapi} />
+          <Sales popularSales={popularSales} ifExists />
+          <Highlight highlightAPI={highlightAPI} ifExists />
+          <Highlight highlightAPI={sneakerAPI} />
         </main>
+        <Footer footerAPI={footerAPI} />
         {children}
       </body>
     </html>
