@@ -1,5 +1,5 @@
 import React from 'react';
-import Item from '../Item';
+import ItemCard from '../ItemCard';
 import Title from '../Title';
 import { PopularSalesProps } from './interface';
 
@@ -14,7 +14,7 @@ function Sales({ ifExists, popularSales: { title, items } }: PopularSalesProps) 
             : 'grid-cols-4 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'
         }`}
       >
-        {items?.map((item) => <Item {...item} ifExists={ifExists} />)}
+        {items?.map((item) => <ItemCard {...item} key={item.id} ifExists={ifExists} />)}
       </div>
     </div>
   );

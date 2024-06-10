@@ -4,22 +4,10 @@ import { StarIcon, ShoppingBagIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import { Items } from '../Sales/interface';
 
-function Item({
-  ifExists,
-  id,
-  colorbg,
-  shadowbg,
-  titleinner,
-  text,
-  img,
-  btn,
-  rating,
-  price,
-}: Items) {
+function ItemCard({ ifExists, id, titleinner, text, img, btn, rating, price }: Items) {
   return (
     <div
-      key={id}
-      className={`relative bg-gradient-to-b ${colorbg} ${shadowbg} grid items-center ${
+      className={`relative bg-gradient-to-b from-blue-600 to-blue-500 shadow-lg shadow-blue-500 grid items-center ${
         ifExists ? 'justify-items-start' : 'justify-items-center'
       } rounded-xl py-4 px-5 transition-all duration-700 ease-in-out w-full hover:scale-105`}
     >
@@ -77,4 +65,4 @@ function Item({
   );
 }
 
-export default Item;
+export default ItemCard;
