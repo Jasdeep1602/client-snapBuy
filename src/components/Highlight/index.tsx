@@ -9,7 +9,7 @@ function Highlight({
   return (
     <div
       className={`flex items-center justify-between lg:flex-col lg:justify-center nike-container ${
-        ifExists ? 'flex-row-reverse' : 'flex-row'
+        ifExists ? 'flex-row-reverse' : 'flex-row mb-6'
       }`}
     >
       <div className="max-w-lg lg:max-w-none w-full md:text-center grid items-center lg:justify-items-center">
