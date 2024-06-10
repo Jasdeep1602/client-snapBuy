@@ -3,14 +3,30 @@ import React from 'react';
 import { StarIcon, ShoppingBagIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import { Items } from '../Sales/interface';
+import './item.css';
 
-function ItemCard({ ifExists, id, titleinner, text, img, btn, rating, price }: Items) {
+function ItemCard({
+  ifExists,
+  id,
+  titleinner,
+  text,
+  img,
+  btn,
+  rating,
+  price,
+  gradientFrom,
+  gradientTo,
+  shadowColor,
+}: Items) {
+  // css style from dynamic
+
+  const cardBgStyle = {
+    background: `linear-gradient(to bottom, ${gradientFrom}, ${gradientTo})`,
+    boxShadow: `0 10px 15px -3px ${shadowColor}, 0 4px 6px -4px ${shadowColor}`,
+  };
+
   return (
-    <div
-      className={`relative bg-gradient-to-b from-blue-600 to-blue-500 shadow-lg shadow-blue-500 grid items-center ${
-        ifExists ? 'justify-items-start' : 'justify-items-center'
-      } rounded-xl py-4 px-5 transition-all duration-700 ease-in-out w-full hover:scale-105`}
-    >
+    <div className={`card ${ifExists ? 'justify-start' : 'justify-center'}`} style={cardBgStyle}>
       <div
         className={`grid items-center ${
           ifExists ? 'justify-items-start' : 'justify-items-center'

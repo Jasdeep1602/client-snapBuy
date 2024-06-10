@@ -48,6 +48,45 @@ const heroapi = {
   ],
 };
 
+// const popularSales = {
+//   title: 'Popular Sales',
+//   items: [
+//     {
+//       id: '0p0x1',
+//       titleinner: 'Nike Addapt BB 2.0',
+//       text: 'MEN Running Shoes',
+//       rating: '4.9',
+//       btn: 'Buy Now',
+//       img: '/nike-adapt-bb.png',
+//       price: '200',
+//       colorbg: 'from-blue-600 to-blue-500',
+//       shadowbg: 'shadow-lg shadow-blue-500',
+//     },
+//     {
+//       id: '0p0x2',
+//       titleinner: 'Nike Martine Rose',
+//       text: 'MEN Running Shoes',
+//       rating: '4.5',
+//       btn: 'Buy Now',
+//       img: '/nike-air-red.png',
+//       price: '200',
+//       colorbg: 'from-red-500 to-rose-500',
+//       shadowbg: 'shadow-lg shadow-rose-500',
+//     },
+//     {
+//       id: '0p0x3',
+//       titleinner: 'Nike Smart Shoe 2.0',
+//       text: 'MEN Running Shoes',
+//       rating: '5+',
+//       btn: 'Buy Now',
+//       img: '/nike-adapt-bb-smart.png',
+//       price: '200',
+//       colorbg: 'from-violet-500 to-indigo-500',
+//       shadowbg: 'shadow-lg shadow-violet-500',
+//     },
+//   ],
+// };
+
 const popularSales = {
   title: 'Popular Sales',
   items: [
@@ -59,8 +98,9 @@ const popularSales = {
       btn: 'Buy Now',
       img: '/nike-adapt-bb.png',
       price: '200',
-      colorbg: 'from-blue-600 to-blue-500',
-      shadowbg: 'shadow-lg shadow-blue-500',
+      gradientFrom: '#2563eb', // from-blue-600
+      gradientTo: '#3b82f6', // to-blue-500
+      shadowColor: 'rgba(59, 130, 246, 0.7)', // shadow-blue-500
     },
     {
       id: '0p0x2',
@@ -70,8 +110,9 @@ const popularSales = {
       btn: 'Buy Now',
       img: '/nike-air-red.png',
       price: '200',
-      colorbg: 'from-red-500 to-rose-500',
-      shadowbg: 'shadow-lg shadow-rose-500',
+      gradientFrom: '#ef4444', // from-red-500
+      gradientTo: '#f43f5e', // to-rose-500
+      shadowColor: 'rgba(244, 63, 94, 0.7)', // shadow-rose-500
     },
     {
       id: '0p0x3',
@@ -81,8 +122,9 @@ const popularSales = {
       btn: 'Buy Now',
       img: '/nike-adapt-bb-smart.png',
       price: '200',
-      colorbg: 'from-violet-500 to-indigo-500',
-      shadowbg: 'shadow-lg shadow-violet-500',
+      gradientFrom: '#8b5cf6', // from-violet-500
+      gradientTo: '#6366f1', // to-indigo-500
+      shadowColor: 'rgba(139, 92, 246, 0.7)', // shadow-violet-500
     },
   ],
 };
@@ -243,6 +285,158 @@ const sneakerAPI = {
 //   ],
 // }
 
+// css style
+
+// const topratesales = {
+//   title: 'Top Rated Sales',
+//   items: [
+//     {
+//       id: '0M0x1',
+//       title: 'Nike Air Low Premium',
+//       text: 'MEN Running Shoes',
+//       rating: '5+',
+//       btn: 'Buy Now',
+//       img: product7,
+//       price: '150',
+//       gradientFrom: '#0284c7', // from-sky-600
+//       gradientTo: '#4338ca', // to-indigo-600
+//       shadowColor: 'rgba(59, 130, 246, 0.7)', // shadow-blue-500
+//     },
+//     {
+//       id: '0M0x2',
+//       title: 'Nike Air Force Green',
+//       text: 'MEN Running Shoes',
+//       rating: '5+',
+//       btn: 'Buy Now',
+//       img: product2,
+//       price: '150',
+//       gradientFrom: '#10b981', // from-green-500
+//       gradientTo: '#059669', // to-emerald-500
+//       shadowColor: 'rgba(16, 185, 129, 0.7)', // shadow-green-500
+//     },
+//     {
+//       id: '0M0x3',
+//       title: 'Nike Addapt BB Rose',
+//       text: 'MEN Running Shoes',
+//       rating: '5+',
+//       btn: 'Buy Now',
+//       img: product3,
+//       price: '150',
+//       gradientFrom: '#ef4444', // from-red-500
+//       gradientTo: '#f43f5e', // to-rose-500
+//       shadowColor: 'rgba(244, 63, 94, 0.7)', // shadow-rose-500
+//     },
+//     {
+//       id: '0M0x4',
+//       title: 'Nike Air Premium',
+//       text: 'MEN Running Shoes',
+//       rating: '5+',
+//       btn: 'Buy Now',
+//       img: product4,
+//       price: '150',
+//       gradientFrom: '#fb923c', // from-orange-500
+//       gradientTo: '#f59e0b', // to-amber-500
+//       shadowColor: 'rgba(251, 146, 60, 0.7)', // shadow-orange-500
+//     },
+//     {
+//       id: '0M0x5',
+//       title: 'Nike Adapt BB Pro',
+//       text: 'MEN Running Shoes',
+//       rating: '5+',
+//       btn: 'Buy Now',
+//       img: product5,
+//       price: '150',
+//       gradientFrom: '#111827', // from-gray-900
+//       gradientTo: '#d97706', // to-yellow-500
+//       shadowColor: 'rgba(234, 179, 8, 0.7)', // shadow-yellow-500
+//     },
+//     {
+//       id: '0M0x6',
+//       title: 'Air Jordan PR3',
+//       text: 'MEN Running Shoes',
+//       rating: '5+',
+//       btn: 'Buy Now',
+//       img: product6,
+//       price: '150',
+//       gradientFrom: '#3b82f6', // from-blue-500
+//       gradientTo: '#22d3ee', // to-cyan-500
+//       shadowColor: 'rgba(6, 182, 212, 0.7)', // shadow-cyan-500
+//     },
+//     {
+//       id: '0M0x7',
+//       title: 'Nike Multi Smart Shoe',
+//       text: 'MEN Running Shoes',
+//       rating: '5+',
+//       btn: 'Buy Now',
+//       img: product1,
+//       price: '150',
+//       gradientFrom: '#facc15', // from-yellow-500
+//       gradientTo: '#facc15', // to-yellow-500
+//       shadowColor: 'rgba(250, 204, 21, 0.7)', // shadow-yellow-500
+//     },
+//     {
+//       id: '0M0x8',
+//       title: 'Nike Jordan Air Max',
+//       text: 'MEN Running Shoes',
+//       rating: '5+',
+//       btn: 'Buy Now',
+//       img: product9,
+//       price: '150',
+//       gradientFrom: '#936550', // from-[#936550]
+//       gradientTo: '#c2410c', // to-orange-900
+//       shadowColor: 'rgba(154, 52, 18, 0.7)', // shadow-orange-800
+//     },
+//     {
+//       id: '0M0x9',
+//       title: 'Nike Old Max-x',
+//       text: 'MEN Running Shoes',
+//       rating: '5+',
+//       btn: 'Buy Now',
+//       img: product10,
+//       price: '150',
+//       gradientFrom: '#4338ca', // from-indigo-700
+//       gradientTo: '#4338ca', // to-indigo-700
+//       shadowColor: 'rgba(129, 140, 248, 0.7)', // shadow-indigo-500
+//     },
+//     {
+//       id: '0M0x10',
+//       title: 'Nike Lime Jordan 11',
+//       text: 'MEN Running Shoes',
+//       rating: '5+',
+//       btn: 'Buy Now',
+//       img: product12,
+//       price: '150',
+//       gradientFrom: '#047857', // from-green-600
+//       gradientTo: '#84cc16', // to-lime-500
+//       shadowColor: 'rgba(132, 204, 22, 0.7)', // shadow-lime-500
+//     },
+//     {
+//       id: '0M0x11',
+//       title: 'Nike Air Black Max',
+//       text: 'MEN Running Shoes',
+//       rating: '5+',
+//       btn: 'Buy Now',
+//       img: product11,
+//       price: '150',
+//       gradientFrom: '#0f172a', // from-slate-900
+//       gradientTo: '#000000', // to-black
+//       shadowColor: 'rgba(0, 0, 0, 0.7)', // shadow-black
+//     },
+//     {
+//       id: '0M0x12',
+//       title: 'Nike Zoom Max',
+//       text: 'MEN Running Shoes',
+//       rating: '5+',
+//       btn: 'Buy Now',
+//       img: product8,
+//       price: '150',
+//       gradientFrom: '#1e40af', // from-blue-900
+//       gradientTo: '#3b82f6', // to-blue-500
+//       shadowColor: 'rgba(59, 130, 246, 0.7)', // shadow-blue-500
+//     },
+//   ],
+// };
+
 // const story = {
 //   title: 'Top Stories',
 //   news: [
@@ -340,32 +534,43 @@ const sneakerAPI = {
 // };
 
 const footerAPI = {
-  titles: [{ title: 'About Nike' }, { title: 'Get Help' }, { title: 'Company' }],
-  links: [
-    [
-      { link: 'News' },
-      { link: 'Careers' },
-      { link: 'Investors' },
-      { link: 'Purpose' },
-      { link: 'Sustainability' },
-    ],
-    [
-      { link: 'Order Status' },
-      { link: 'Shipping & Delivery' },
-      { link: 'Payment Options' },
-      { link: 'Gift Card Balance' },
-      { link: 'Contact Us' },
-      { link: 'FAQ' },
-      { link: 'Blog' },
-    ],
-    [
-      { link: 'Gift Cards' },
-      { link: 'Promotions' },
-      { link: 'Find A Store' },
-      { link: 'Signup' },
-      { link: 'Nike Journal' },
-      { link: 'Send Us Feedback' },
-    ],
+  sections: [
+    {
+      title: 'About Nike',
+      id: 'about-nike',
+      links: [
+        { link: 'News' },
+        { link: 'Careers' },
+        { link: 'Investors' },
+        { link: 'Purpose' },
+        { link: 'Sustainability' },
+      ],
+    },
+    {
+      title: 'Get Help',
+      id: 'get-help',
+      links: [
+        { link: 'Order Status' },
+        { link: 'Shipping & Delivery' },
+        { link: 'Payment Options' },
+        { link: 'Gift Card Balance' },
+        { link: 'Contact Us' },
+        { link: 'FAQ' },
+        { link: 'Blog' },
+      ],
+    },
+    {
+      title: 'Company',
+      id: 'company',
+      links: [
+        { link: 'Gift Cards' },
+        { link: 'Promotions' },
+        { link: 'Find A Store' },
+        { link: 'Signup' },
+        { link: 'Nike Journal' },
+        { link: 'Send Us Feedback' },
+      ],
+    },
   ],
 };
 

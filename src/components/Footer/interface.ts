@@ -1,5 +1,7 @@
-export interface Title {
+export interface Section {
+  id: string;
   title: string;
+  links: Link[];
 }
 
 export interface Link {
@@ -7,8 +9,7 @@ export interface Link {
 }
 
 export interface FooterAPI {
-  titles: Title[];
-  links: Link[][];
+  sections: Section[];
 }
 
 export interface FooterProps {

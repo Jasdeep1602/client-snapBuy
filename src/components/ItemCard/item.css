@@ -1,0 +1,13 @@
+.card {
+  position: relative;
+  display: grid;
+  align-items: center;
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 1rem 1.25rem; /* py-4 px-5 */
+  transition: all 0.7s ease-in-out; /* transition-all duration-700 ease-in-out */
+  width: 100%; /* w-full */
+}
+
+.card:hover {
+  transform: scale(1.05); /* hover:scale-105 */
+}

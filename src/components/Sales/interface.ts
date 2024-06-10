@@ -6,6 +6,9 @@ export interface Items {
   btn: string;
   img: string;
   price: string;
+  gradientFrom: string;
+  gradientTo: string;
+  shadowColor: string;
   ifExists?: boolean; // Optional prop
 }
 
