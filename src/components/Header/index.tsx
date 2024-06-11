@@ -2,8 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 
-import { MagnifyingGlassIcon, HeartIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import Link from 'next/link';
 
 function Header() {
   const [navState, setNavState] = useState(false);
@@ -47,11 +48,11 @@ function Header() {
               className={`icon-style ${navState && 'text-slate-900 transition-all duration-300'}`}
             />
           </li>
-          <li className="grid items-center">
+          {/* <li className="grid items-center">
             <HeartIcon
               className={`icon-style ${navState && 'text-slate-900 transition-all duration-300'}`}
             />
-          </li>
+          </li> */}
           <li className="grid items-center">
             <button
               type="button"
@@ -70,6 +71,22 @@ function Header() {
                 scsc{' '}
               </div>
             </button>
+          </li>
+          <li className="grid items-center">
+            <Link
+              href="/login"
+              className=" transition-all duration-200 ease-in-out hover:scale-105  ml-6 text-sm font-semibold leading-6 text-white bg-red-600 p-1 rounded "
+            >
+              Log out
+            </Link>
+          </li>
+          <li className="grid items-center">
+            <Link
+              href="/register"
+              className=" transition-all duration-200 ease-in-out hover:scale-105 text-sm font-semibold leading-6 text-white bg-green-600 p-1 rounded "
+            >
+              Register
+            </Link>
           </li>
         </ul>
       </nav>
