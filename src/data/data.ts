@@ -97,7 +97,7 @@ const popularSales = {
       rating: '4.9',
       btn: 'Buy Now',
       img: '/nike-adapt-bb.png',
-      price: '200',
+      price: '500',
       gradientFrom: '#2563eb', // from-blue-600
       gradientTo: '#3b82f6', // to-blue-500
       shadowColor: 'rgba(59, 130, 246, 0.7)', // shadow-blue-500
@@ -109,7 +109,7 @@ const popularSales = {
       rating: '4.5',
       btn: 'Buy Now',
       img: '/nike-air-red.png',
-      price: '200',
+      price: '400',
       gradientFrom: '#ef4444', // from-red-500
       gradientTo: '#f43f5e', // to-rose-500
       shadowColor: 'rgba(244, 63, 94, 0.7)', // shadow-rose-500
@@ -121,7 +121,7 @@ const popularSales = {
       rating: '5+',
       btn: 'Buy Now',
       img: '/nike-adapt-bb-smart.png',
-      price: '200',
+      price: '300',
       gradientFrom: '#8b5cf6', // from-violet-500
       gradientTo: '#6366f1', // to-indigo-500
       shadowColor: 'rgba(139, 92, 246, 0.7)', // shadow-violet-500

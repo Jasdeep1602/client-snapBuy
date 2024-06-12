@@ -16,6 +16,6 @@ const config: Config = {
       xsm: { max: '375px' },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 };
 export default config;

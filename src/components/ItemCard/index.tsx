@@ -1,6 +1,9 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
-import { StarIcon, ShoppingBagIcon } from '@heroicons/react/24/solid';
+import {
+  StarIcon,
+  //  ShoppingBagIcon
+} from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import { Items } from '../Sales/interface';
 import './item.css';
@@ -11,7 +14,7 @@ function ItemCard({
   titleinner,
   text,
   img,
-  btn,
+  // btn,
   rating,
   price,
   gradientFrom,
@@ -46,7 +49,7 @@ function ItemCard({
             <h1 className="md:text-sm font-normal text-slate-100">{rating}</h1>
           </div>
         </div>
-        <div className="flex items-center gap-3">
+        {/* <div className="flex items-center gap-3">
           <button
             type="button"
             className="bg-white opacity-90 blur-effect-theme button-theme p-0.5 shadow-sky-200"
@@ -59,7 +62,7 @@ function ItemCard({
           >
             {btn}
           </button>
-        </div>
+        </div> */}
       </div>
 
       <div
