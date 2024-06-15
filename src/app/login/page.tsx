@@ -1,10 +1,53 @@
+'use client';
+
 /* eslint-disable react/no-unescaped-entities */
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
+import { authLogin } from '@/redux/slices/auth';
+import { useRouter } from 'next/navigation';
 
 function Login() {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const { isLoginFetching } = useAppSelector((state) => state.auth);
+  // local state
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleInput = (e: any) => {
+    const { name, value } = e.target;
+
+    setUser({ ...user, [name]: value });
+  };
+
+  const handleLogin = async (e: any) => {
+    e.preventDefault();
+
+    await dispatch(
+      authLogin({
+        data: {
+          email: user.email,
+          password: user.password,
+        },
+      })
+    )
+      .unwrap()
+      .then(() => {
+        localStorage.setItem('Login', 'true');
+        router.push('/');
+      })
+      .catch((err) => {
+        if (err) {
+          console.log(isLoginFetching, 'eqjb');
+        }
+      });
+  };
   return (
-    <div>
+    <form onSubmit={handleLogin}>
       <div className="flex h-screen w-screen items-center overflow-hidden px-2 justify-center `">
         <div className="relative flex w-96 flex-col space-y-5 rounded-lg border bg-white px-5 py-10 shadow-xl sm:mx-auto">
           <div
@@ -21,9 +64,11 @@ function Login() {
               <input
                 type="text"
                 id="email"
-                value="email@gmail.com"
+                name="email"
+                value={user?.email}
                 className="border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
                 placeholder=" "
+                onChange={handleInput}
               />
               <label
                 htmlFor="email"
@@ -38,10 +83,13 @@ function Login() {
           <div>
             <div className="relative mt-2 w-full">
               <input
-                type="text"
+                type="password"
                 id="password"
+                name="password"
+                value={user?.password}
                 className="border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
                 placeholder=" "
+                onChange={handleInput}
               />
               <label
                 htmlFor="password"
@@ -54,7 +102,7 @@ function Login() {
           </div>
           <div className="flex w-full items-center">
             <button
-              type="button"
+              type="submit"
               className="shrink-0 inline-block w-36 rounded-lg bg-violet-500 py-3 font-bold text-white"
             >
               Login
@@ -72,7 +120,7 @@ function Login() {
           </p>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
 

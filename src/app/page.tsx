@@ -12,13 +12,13 @@ import { getProducts } from '@/redux/slices/products';
 
 export default function Home() {
   const dispatch = useAppDispatch();
-  const { isLoading, products } = useAppSelector((state) => state.products);
+  const { isFetching, products } = useAppSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(getProducts({}));
   }, [dispatch]);
 
-  console.log(isLoading, products, 'health');
+  console.log(isFetching, products, 'health');
   return (
     <div>
       {' '}

@@ -1,10 +1,48 @@
+'use client';
+
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 /* eslint-disable react/no-unescaped-entities */
+import { authRegister } from '@/redux/slices/auth';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 
 function Register() {
+  const dispatch = useAppDispatch();
+  const { isRegFetching } = useAppSelector((state) => state.auth);
+  // local state
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const handleInput = (e: any) => {
+    const { name, value } = e.target;
+
+    setUser({ ...user, [name]: value });
+  };
+
+  const handleRegister = async (e: any) => {
+    e.preventDefault();
+
+    await dispatch(
+      authRegister({
+        data: {
+          name: user.name,
+          email: user.email,
+          password: user.password,
+        },
+      })
+    )
+      .unwrap()
+      .catch((err) => {
+        if (err) {
+          console.log(isRegFetching, 'eqjb');
+        }
+      });
+  };
   return (
-    <div>
+    <form onSubmit={handleRegister}>
       <div className="flex h-screen w-screen items-center overflow-hidden px-2 justify-center `">
         <div className="relative flex w-96 flex-col space-y-5 rounded-lg border bg-white px-5 py-10 shadow-xl sm:mx-auto">
           <div
@@ -20,13 +58,15 @@ function Register() {
             <div className="relative mt-2 w-full">
               <input
                 type="text"
-                id="email"
-                value="email@gmail.com"
+                id="name"
+                name="name"
+                value={user.name}
                 className="border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
                 placeholder=" "
+                onChange={handleInput}
               />
               <label
-                htmlFor="email"
+                htmlFor="name"
                 className="origin-[0] peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-blue-600 absolute left-1 top-2 z-10 -translate-y-4 scale-75 transform cursor-text select-none bg-white px-2 text-sm text-gray-500 duration-300"
               >
                 {' '}
@@ -39,13 +79,15 @@ function Register() {
             <div className="relative mt-2 w-full">
               <input
                 type="text"
-                id="name"
-                value="absah"
+                id="email"
+                name="email"
+                value={user.email}
                 className="border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
                 placeholder=" "
+                onChange={handleInput}
               />
               <label
-                htmlFor="name"
+                htmlFor="email"
                 className="origin-[0] peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-blue-600 absolute left-1 top-2 z-10 -translate-y-4 scale-75 transform cursor-text select-none bg-white px-2 text-sm text-gray-500 duration-300"
               >
                 {' '}
@@ -57,10 +99,13 @@ function Register() {
           <div>
             <div className="relative mt-2 w-full">
               <input
-                type="text"
+                type="password"
                 id="password"
+                name="password"
+                value={user.password}
                 className="border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
                 placeholder=" "
+                onChange={handleInput}
               />
               <label
                 htmlFor="password"
@@ -73,7 +118,7 @@ function Register() {
           </div>
           <div className="flex w-full items-center">
             <button
-              type="button"
+              type="submit"
               className="shrink-0 inline-block w-36 rounded-lg bg-blue-600 py-3 font-bold text-white"
             >
               Register
@@ -91,7 +136,7 @@ function Register() {
           </p>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
 

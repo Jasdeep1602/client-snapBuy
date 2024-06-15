@@ -5,7 +5,7 @@ import { FetchProductInterface, ProductState } from './interface';
 
 const initialState = {
   products: null,
-  isLoading: false,
+  isFetching: false,
 } as ProductState;
 
 export const getProducts = createAsyncThunk(
@@ -68,18 +68,18 @@ const ProductSlice = createSlice({
     builder.addCase(getProducts.pending, (init) => {
       const state = init;
       // state.data = null;
-      state.isLoading = true;
+      state.isFetching = true;
     });
     builder.addCase(getProducts.fulfilled, (init, action) => {
       const state = init;
       state.products = action.payload;
       console.log(action.payload, 'hwhfw');
 
-      state.isLoading = false;
+      state.isFetching = false;
     });
     builder.addCase(getProducts.rejected, (init) => {
       const state = init;
-      state.isLoading = false;
+      state.isFetching = false;
     });
   },
 });

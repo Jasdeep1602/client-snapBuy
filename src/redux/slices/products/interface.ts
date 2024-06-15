@@ -1,6 +1,6 @@
 export declare interface ProductState {
   products: any;
-  isLoading: boolean;
+  isFetching: boolean;
 }
 
 export declare interface FetchProductInterface {
