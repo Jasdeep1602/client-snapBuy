@@ -26,6 +26,18 @@ function Login() {
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
+    // try {
+    //   await axios.post('http://localhost:5000/user/login', user, {
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     withCredentials: true,
+    //   });
+    //   localStorage.setItem('Login', 'true');
+    //   router.push('/');
+    // } catch (err: any) {
+    //   console.log(err.response.data.msg);
+    // }
 
     await dispatch(
       authLogin({

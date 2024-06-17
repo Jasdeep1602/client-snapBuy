@@ -65,7 +65,7 @@ export const authRefreshToken = createAsyncThunk(
     });
     try {
       const resp = await commonService({
-        method: 'POST',
+        method: 'GET',
         url: 'user/refreshtoken',
         data: payload?.data,
         params: payload?.params,
@@ -84,21 +84,6 @@ const AuthSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    // updateUser(init, action) {
-    //   const state = init;
-    //   state.user = { ...state.user, ...action.payload };
-    //   const data = action.payload;
-    //   const session = window.sessionStorage;
-    //   if (data.user) {
-    //     session.setItem('cecId', data.user.cecId);
-    //   }
-    //   if (data.actAsUser) {
-    //     session.setItem('actAsId', data.actAsUser.cecId);
-    //   }
-    //   if (data.userInfo) {
-    //     session.setItem('fullName', data.userInfo.name);
-    //   }
-    // },
     // setIsAuthorized(init, action) {
     //   const state = init;
     //   state.isAuthorized = action.payload;

@@ -3,14 +3,13 @@ import { commonServiceInstance } from '.';
 // - - - authServiceInstance interceptor request - - -
 commonServiceInstance.interceptors.request.use(
   (request) => {
-    const accessToken =
-      typeof window !== 'undefined'
-        ? `Bearer ${window.sessionStorage.getItem('userAccessToken')}`
-        : null;
+    request.baseURL = 'http://localhost:5000';
 
-    // const env = getEnvironments();
-    request.headers.Authorization = accessToken;
-    request.baseURL = 'http://tradefull-apps-21691982.us-east-2.elb.amazonaws.com/api/v1';
+    // Set custom headers
+    request.headers['Content-Type'] = 'application/json';
+
+    // Include credentials with requests
+    request.withCredentials = true;
     return request;
   },
   (error) => {

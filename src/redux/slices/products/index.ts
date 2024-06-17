@@ -35,31 +35,7 @@ export const getProducts = createAsyncThunk(
 const ProductSlice = createSlice({
   name: 'products',
   initialState,
-  reducers: {
-    // updateUser(init, action) {
-    //   const state = init;
-    //   state.user = { ...state.user, ...action.payload };
-    //   const data = action.payload;
-    //   const session = window.sessionStorage;
-    //   if (data.user) {
-    //     session.setItem('cecId', data.user.cecId);
-    //   }
-    //   if (data.actAsUser) {
-    //     session.setItem('actAsId', data.actAsUser.cecId);
-    //   }
-    //   if (data.userInfo) {
-    //     session.setItem('fullName', data.userInfo.name);
-    //   }
-    // },
-    // setIsAuthorized(init, action) {
-    //   const state = init;
-    //   state.isAuthorized = action.payload;
-    // },
-    // setIsInvalidUser(init, action) {
-    //   const state = init;
-    //   state.isInvalidUser = action.payload;
-    // },
-  },
+  reducers: {},
 
   // middleware extended reducers
   extraReducers: (builder) => {
