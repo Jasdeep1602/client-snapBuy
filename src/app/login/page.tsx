@@ -6,6 +6,8 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { authLogin } from '@/redux/slices/auth';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import CustomButton from '@/components/CustomButton';
 
 function Login() {
   const dispatch = useAppDispatch();
@@ -50,11 +52,12 @@ function Login() {
       .unwrap()
       .then(() => {
         localStorage.setItem('Login', 'true');
+        toast.success('Login Success');
         router.push('/');
       })
       .catch((err) => {
         if (err) {
-          console.log(isLoginFetching, 'eqjb');
+          toast.error('Login Failed');
         }
       });
   };
@@ -113,12 +116,12 @@ function Login() {
             </div>
           </div>
           <div className="flex w-full items-center">
-            <button
-              type="submit"
-              className="shrink-0 inline-block w-36 rounded-lg bg-violet-500 py-3 font-bold text-white"
-            >
-              Login
-            </button>
+            <CustomButton
+              typeButton="submit"
+              className="flex items-center justify-center shrink-0  w-36 rounded-lg bg-violet-500 py-3 font-bold text-white"
+              loadingState={isLoginFetching}
+              text="Login"
+            />
           </div>
           <p className="text-center text-gray-600">
             Don't have an account?

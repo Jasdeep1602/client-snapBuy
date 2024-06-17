@@ -1,13 +1,18 @@
 'use client';
 
+import CustomButton from '@/components/CustomButton';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 /* eslint-disable react/no-unescaped-entities */
 import { authRegister } from '@/redux/slices/auth';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import { toast } from 'sonner';
 
 function Register() {
   const dispatch = useAppDispatch();
+  const router = useRouter();
+
   const { isRegFetching } = useAppSelector((state) => state.auth);
   // local state
   const [user, setUser] = useState({
@@ -35,9 +40,13 @@ function Register() {
       })
     )
       .unwrap()
+      .then(() => {
+        toast.success('Register Success');
+        router.push('/login');
+      })
       .catch((err) => {
         if (err) {
-          console.log(isRegFetching, 'eqjb');
+          toast.error('Registration Failed');
         }
       });
   };
@@ -117,12 +126,12 @@ function Register() {
             </div>
           </div>
           <div className="flex w-full items-center">
-            <button
-              type="submit"
-              className="shrink-0 inline-block w-36 rounded-lg bg-blue-600 py-3 font-bold text-white"
-            >
-              Register
-            </button>
+            <CustomButton
+              typeButton="submit"
+              className="flex items-center justify-center shrink-0 w-36 rounded-lg bg-blue-600 py-3 font-bold text-white"
+              loadingState={isRegFetching}
+              text="Register"
+            />
           </div>
           <p className="text-center text-gray-600">
             Already have an account?
