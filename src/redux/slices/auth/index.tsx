@@ -72,7 +72,7 @@ export const authRefreshToken = createAsyncThunk(
         cancelToken: source.token,
       });
 
-      console.log(resp, 'token');
+      console.log(resp, 'asynctoken');
       return resp?.data;
     } catch (error: any) {
       return thunkAPI?.rejectWithValue(error?.message);
@@ -84,10 +84,10 @@ const AuthSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    // setIsAuthorized(init, action) {
-    //   const state = init;
-    //   state.isAuthorized = action.payload;
-    // },
+    setToken(init, action) {
+      const state = init;
+      state.token = action.payload;
+    },
     // setIsInvalidUser(init, action) {
     //   const state = init;
     //   state.isInvalidUser = action.payload;
@@ -138,7 +138,7 @@ const AuthSlice = createSlice({
     builder.addCase(authRefreshToken.fulfilled, (init, action) => {
       const state = init;
       // state.token = action.payload;
-      console.log(action.payload, 'refresh');
+      state.token = action.payload?.accesstoken;
 
       state.isRegFetching = false;
     });

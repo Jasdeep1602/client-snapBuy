@@ -15,6 +15,8 @@ import { authRefreshToken } from '@/redux/slices/auth';
 export default function Home() {
   const dispatch = useAppDispatch();
   const { isFetching, products } = useAppSelector((state) => state.products);
+  const { token } = useAppSelector((state) => state.auth);
+  console.log(token, 'here isit');
 
   //   const token = await axios.get('http://localhost:5000/user/refreshtoken', {
   //     headers: {
