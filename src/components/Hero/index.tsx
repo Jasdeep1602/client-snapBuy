@@ -1,27 +1,38 @@
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useAppSelector } from '@/hooks/redux';
 import Clips from '../Clips';
 import SocialLinks from '../SocialLink';
 import { HeroProps } from './interface';
 
 function Hero({ heroapi: { title, subtitle, btntext, img, sociallinks, videos } }: HeroProps) {
+  const { isAdmin } = useAppSelector((state) => state.auth);
+
+  const router = useRouter();
+  const handleAdminRoute = () => {
+    router.push('/admin-page');
+  };
   return (
     <div className="relative h-auto w-auto flex flex-col">
       <div className="bg-theme clip-path h-[85vh] lg:h-[75vh] md:h-[65vh] sm:h-[55vh] w-auto absolute top-0 left-0 right-0 opacity-100 z-10" />
       <div className="relative opacity-100 z-20 grid items-center justify-items-center nike-container">
-        <div className="grid items-center justify-items-center mt-28 md:mt-24 ">
+        <div className="grid items-center justify-items-center mt-28 md:mt-24 mb-6 ">
           <h1 className="text-6xl lg:text-5xl md:text-4xl sm:text-3xl xsm:text-2xl font-extrabold filter drop-shadow-sm text-slate-200 ">
             {title}
           </h1>
           <h1 className="text-6xl lg:text-5xl md:text-4xl sm:text-3xl xsm:text-2xl font-extrabold filter drop-shadow-sm text-slate-200">
             {subtitle}
           </h1>
-          <button
-            type="button"
-            className="button-theme bg-slate-200 shadow-slate-200 rounded-xl my-5"
-          >
-            {btntext}
-          </button>
+          {isAdmin && (
+            <button
+              type="button"
+              onClick={handleAdminRoute}
+              className="button-theme bg-slate-200 shadow-slate-200 rounded-xl my-5 font-semibold text-slate-700 transition-all duration-200 ease-in-out hover:scale-105"
+            >
+              {btntext}
+            </button>
+          )}
           <div className=" grid items-center gap-5 md:gap-3 absolute top-[33vh] lg;top-[27vh] left-[11%] xl:left-0 w-auto h-auto">
             {videos?.map((val) => <Clips key={val.imgsrc} imgsrc={val.imgsrc} clip={val.clip} />)}
           </div>

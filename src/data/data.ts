@@ -33,7 +33,7 @@ const heroapi = {
   title: 'Play With Electric Nike',
   subtitle: 'Adapt 2.0 Sneakers',
   img: '/hero.png',
-  btntext: 'Explore Product',
+  btntext: 'Admin Access ',
   videos: [
     { imgsrc: '/video/vcover1.png', clip: '/video/clip.mp4' },
     { imgsrc: '/video/vcover2.png', clip: '/video/clip.mp4' },
