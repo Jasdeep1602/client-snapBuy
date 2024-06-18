@@ -4,6 +4,7 @@ export declare interface AuthState {
   isAdmin: boolean;
   isRegFetching: boolean;
   isLoginFetching: boolean;
+  isLogoutFetching: boolean;
 }
 
 export declare interface FetchAuthInterface {

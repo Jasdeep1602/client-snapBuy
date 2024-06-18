@@ -118,7 +118,7 @@ function Login() {
           <div className="flex w-full items-center">
             <CustomButton
               typeButton="submit"
-              className="flex items-center justify-center shrink-0  w-36 rounded-lg bg-violet-500 py-3 font-bold text-white"
+              className="flex items-center justify-center shrink-0  w-36 rounded-lg bg-violet-500 hover:bg-violet-600 py-3 font-bold text-white"
               loadingState={isLoginFetching}
               text="Login"
             />

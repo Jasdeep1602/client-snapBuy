@@ -9,6 +9,7 @@ const initialState = {
   isAdmin: false,
   isLoginFetching: false,
   isRegFetching: false,
+  isLogoutFetching: false,
 } as AuthState;
 
 export const authLogin = createAsyncThunk(
@@ -69,6 +70,30 @@ export const authRefreshToken = createAsyncThunk(
       const resp = await commonService({
         method: 'GET',
         url: 'user/refreshtoken',
+        data: payload?.data,
+        params: payload?.params,
+        cancelToken: source.token,
+      });
+
+      console.log(resp, 'asynctoken');
+      return resp?.data;
+    } catch (error: any) {
+      return thunkAPI?.rejectWithValue(error?.message);
+    }
+  }
+);
+
+export const authLogout = createAsyncThunk(
+  'logout',
+  async (payload: FetchAuthInterface | undefined, thunkAPI) => {
+    const source = axios.CancelToken.source();
+    thunkAPI.signal.addEventListener('abort', () => {
+      source.cancel();
+    });
+    try {
+      const resp = await commonService({
+        method: 'GET',
+        url: 'user/logout',
         data: payload?.data,
         params: payload?.params,
         cancelToken: source.token,
@@ -152,9 +177,8 @@ const AuthSlice = createSlice({
       // state.data = null;
       state.isLoginFetching = true;
     });
-    builder.addCase(authLogin.fulfilled, (init, action) => {
+    builder.addCase(authLogin.fulfilled, (init) => {
       const state = init;
-      console.log(action.payload, 'hwhfw');
 
       state.isLoginFetching = false;
     });
@@ -170,9 +194,8 @@ const AuthSlice = createSlice({
       // state.data = null;
       state.isRegFetching = true;
     });
-    builder.addCase(authRegister.fulfilled, (init, action) => {
+    builder.addCase(authRegister.fulfilled, (init) => {
       const state = init;
-      console.log(action.payload, 'hwhfw');
 
       state.isRegFetching = false;
     });
@@ -197,6 +220,22 @@ const AuthSlice = createSlice({
     builder.addCase(authRefreshToken.rejected, (init) => {
       const state = init;
       state.isRegFetching = false;
+    });
+
+    // - - - - Adding Logout  - - - - - - - -
+    builder.addCase(authLogout.pending, (init) => {
+      const state = init;
+      // state.data = null;
+      state.isLogoutFetching = true;
+    });
+    builder.addCase(authLogout.fulfilled, (init) => {
+      const state = init;
+
+      state.isLogoutFetching = false;
+    });
+    builder.addCase(authLogout.rejected, (init) => {
+      const state = init;
+      state.isLogoutFetching = false;
     });
   },
 });

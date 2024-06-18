@@ -32,7 +32,7 @@ export default function CreateProduct() {
                 </div>
               </div>
             </div>
-            <div className="flex items-center justify-between gap-5 justify-between">
+            <div className="flex items-center  gap-5 justify-between">
               <label htmlFor="Title" className="block text-sm font-medium leading-6 text-gray-900">
                 Title :
               </label>
@@ -49,7 +49,7 @@ export default function CreateProduct() {
                 </div>
               </div>
             </div>
-            <div className="flex items-center justify-between gap-5 justify-between">
+            <div className="flex items-center justify-between gap-5 ">
               <label
                 htmlFor="Description"
                 className="block text-sm font-medium leading-6 text-gray-900"
@@ -188,7 +188,7 @@ export default function CreateProduct() {
           </div>
         </div>
 
-        <div className="mt-6 flex items-center justify-between gap-5 justify-end gap-x-6">
+        <div className="mt-6 flex items-center  gap-5 justify-end gap-x-6">
           <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
             Cancel
           </button>

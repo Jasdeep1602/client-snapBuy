@@ -7,6 +7,7 @@ interface CustomButtonProps {
   className: string;
   loadingState?: boolean;
   text: string;
+  onClick?: any;
 }
 
 export default function CustomButton({
@@ -14,9 +15,10 @@ export default function CustomButton({
   className,
   loadingState,
   text,
+  onClick,
 }: CustomButtonProps) {
   return (
-    <button type={typeButton} className={className}>
+    <button type={typeButton} className={className} onClick={onClick}>
       {loadingState ? (
         <svg
           width="20"

@@ -5,8 +5,17 @@ import React, { useEffect, useState } from 'react';
 import { MagnifyingGlassIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { authLogout, setIsAdmin, setIsLogged } from '@/redux/slices/auth';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
+import CustomButton from '../CustomButton';
 
 function Header() {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { isLogged } = useAppSelector((state) => state.auth);
+
   const [navState, setNavState] = useState(false);
 
   const onNavScroll = () => {
@@ -14,6 +23,27 @@ function Header() {
       setNavState(true);
     } else {
       setNavState(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    if (!isLogged) {
+      router.push('/login');
+    } else {
+      await dispatch(authLogout({}))
+        .unwrap()
+        .then(() => {
+          localStorage.clear();
+          dispatch(setIsAdmin(false));
+          dispatch(setIsLogged(false));
+          toast.success('Logged out Successfully');
+          router.push('/login');
+        })
+        .catch((err) => {
+          if (err) {
+            toast.error('Logout Failed');
+          }
+        });
     }
   };
 
@@ -32,7 +62,7 @@ function Header() {
       }
     >
       <nav className="flex items-center justify-between nike-container">
-        <div className="flex items-center">
+        <div className="flex items-center gap-4">
           <Image
             src="/logo.png"
             width={500} // Adjust the width value in pixels
@@ -40,6 +70,11 @@ function Header() {
             alt="logo/img"
             className={`w-16 h-auto ${navState && 'filter brightness-0'}`}
           />
+          <p
+            className={`${navState ? 'text-slate-800' : 'text-slate-200'}  filter text-base md:text-sm  font-semibold`}
+          >
+            Hey
+          </p>
         </div>
 
         <ul className="flex items-center justify-center gap-2">
@@ -73,17 +108,17 @@ function Header() {
             </button>
           </li>
           <li className="grid items-center">
-            <Link
-              href="/login"
-              className=" transition-all duration-200 ease-in-out hover:scale-105  ml-6 text-sm font-semibold leading-6 text-white bg-red-600 p-1 rounded "
-            >
-              Log out
-            </Link>
+            <CustomButton
+              typeButton="button"
+              text={isLogged ? 'Log out' : 'Log in'}
+              className={`transition-all duration-200 ease-in-out hover:scale-105  ml-6 mr-2 pr-2 pl-2 text-sm font-semibold leading-6 text-white ${isLogged ? 'bg-rose-700 hover:bg-rose-600' : 'bg-emerald-700 hover:bg-emerald-600 '} p-1 rounded  `}
+              onClick={handleLogout}
+            />
           </li>
           <li className="grid items-center">
             <Link
               href="/register"
-              className=" transition-all duration-200 ease-in-out hover:scale-105 text-sm font-semibold leading-6 text-white bg-green-600 p-1 rounded "
+              className=" transition-all duration-200 ease-in-out hover:scale-105 text-sm font-semibold pr-2 pl-2 leading-6 text-white bg-green-600 p-1 rounded "
             >
               Register
             </Link>

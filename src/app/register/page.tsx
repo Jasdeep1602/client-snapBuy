@@ -128,7 +128,7 @@ function Register() {
           <div className="flex w-full items-center">
             <CustomButton
               typeButton="submit"
-              className="flex items-center justify-center shrink-0 w-36 rounded-lg bg-blue-600 py-3 font-bold text-white"
+              className="flex items-center justify-center shrink-0 w-36 rounded-lg bg-blue-600 hover:bg-blue-700  py-3 font-bold text-white"
               loadingState={isRegFetching}
               text="Register"
             />
