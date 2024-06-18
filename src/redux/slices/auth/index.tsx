@@ -80,6 +80,46 @@ export const authRefreshToken = createAsyncThunk(
   }
 );
 
+// export const getUser = createAsyncThunk(
+//   'getUser',
+//   async (payload: FetchAuthInterface | undefined, thunkAPI) => {
+//     const source = axios.CancelToken.source();
+//     thunkAPI.signal.addEventListener('abort', () => {
+//       source.cancel();
+//     });
+//     try {
+//       const resp = await commonService({
+//         method: 'GET',
+//         url: 'user/',
+//         data: payload?.data,
+//         params: payload?.params,
+//         cancelToken: source.token,
+//       });
+
+//       console.log(resp, 'asynctoken');
+//       return resp?.data;
+//     } catch (error: any) {
+//       return thunkAPI?.rejectWithValue(error?.message);
+//     }
+//   }
+// );
+
+// export const getUser = createAsyncThunk('getUser', async (token: string | null, thunkAPI) => {
+//   try {
+//     const resp = await commonService({
+//       method: 'GET',
+//       url: 'user/infor',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
+//     return resp.data;
+//   } catch (error: any) {
+//     return thunkAPI.rejectWithValue(error.message);
+//   }
+// });
+
 const AuthSlice = createSlice({
   name: 'auth',
   initialState,
@@ -96,8 +136,7 @@ const AuthSlice = createSlice({
 
   // middleware extended reducers
   extraReducers: (builder) => {
-    // fetching product categories
-    // - - - - Adding Product Categories  - - - - - - - -
+    // - - - - Adding Login  - - - - - - - -
     builder.addCase(authLogin.pending, (init) => {
       const state = init;
       // state.data = null;
@@ -113,6 +152,8 @@ const AuthSlice = createSlice({
       const state = init;
       state.isLoginFetching = false;
     });
+
+    // - - - - Adding Register  - - - - - - - -
 
     builder.addCase(authRegister.pending, (init) => {
       const state = init;
@@ -130,6 +171,8 @@ const AuthSlice = createSlice({
       state.isRegFetching = false;
     });
 
+    // - - - - Adding RefreshToken  - - - - - - - -
+
     builder.addCase(authRefreshToken.pending, (init) => {
       const state = init;
       // state.data = null;
@@ -139,7 +182,6 @@ const AuthSlice = createSlice({
       const state = init;
       // state.token = action.payload;
       state.token = action.payload?.accesstoken;
-
       state.isRegFetching = false;
     });
     builder.addCase(authRefreshToken.rejected, (init) => {

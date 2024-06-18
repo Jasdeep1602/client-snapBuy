@@ -16,6 +16,18 @@ export const commonService = (props: Props) => {
   });
 };
 
+// cookie retrieve function fron document
+
+// function getCookie(name: string): string | undefined {
+//   const cookieValue = `; ${document.cookie}`;
+//   const cookieParts = cookieValue.split(`; ${name}=`);
+
+//   if (cookieParts.length === 2) {
+//     return cookieParts.pop()?.split(';').shift();
+//   }
+
+//   return undefined; // Return undefined if the cookie is not found
+// }
 // - - - authServiceInstance interceptor request - - -
 commonServiceInstance.interceptors.request.use(
   (request) => {
@@ -23,6 +35,12 @@ commonServiceInstance.interceptors.request.use(
 
     // Set custom headers
     request.headers['Content-Type'] = 'application/json';
+
+    // Retrieve the token from the cookies
+    // const token = getCookie('refreshtoken'); // Adjust the cookie name based on your setup
+    // if (token) {
+    // request.headers.Authorization = `Bearer ${token}`;
+    // }
 
     // Include credentials with requests
     request.withCredentials = true;

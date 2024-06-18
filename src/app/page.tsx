@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { useCallback, useEffect } from 'react';
 import { getProducts } from '@/redux/slices/products';
 import { authRefreshToken } from '@/redux/slices/auth';
+import axios from 'axios';
 // import axios from 'axios';
 
 export default function Home() {
@@ -18,27 +19,33 @@ export default function Home() {
   const { token } = useAppSelector((state) => state.auth);
   console.log(token, 'here isit');
 
-  //   const token = await axios.get('http://localhost:5000/user/refreshtoken', {
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     withCredentials: true,
-  //   });
-  //   console.log('refresh', token);
-  // } catch (err: any) {
-  //   console.log(err.response.data.msg);
-  // }
+  // Used direct axios method as token kept in cokkie was not easy to pass in the intecptors
+  // We can use session storage instead of cookie for easy accessibility
+  // Session tokens is used widely now
 
-  const refreshToken = useCallback(async () => {
-    await dispatch(authRefreshToken({})).then((res) => {
-      console.log(res, 'don it');
-    });
+  const refreshTokenAndFetchUser = useCallback(async () => {
+    try {
+      const res = await dispatch(authRefreshToken({}));
+      console.log(res, 'Token refreshed');
+      if (res?.payload?.accesstoken) {
+        const resToken = res.payload.accesstoken;
+        const userRes = await axios.get('http://localhost:5000/user/infor', {
+          headers: { Authorization: `Bearer ${resToken}` },
+        });
+        console.log(userRes, 'User info');
+      }
+    } catch (err) {
+      console.error('Error refreshing token or fetching user info', err);
+    }
   }, [dispatch]);
+
   useEffect(() => {
     const login = localStorage.getItem('Login');
-    if (login) refreshToken();
-    dispatch(getProducts({}));
-  }, [dispatch, refreshToken]);
+    if (login) {
+      refreshTokenAndFetchUser();
+      dispatch(getProducts({}));
+    }
+  }, [dispatch, refreshTokenAndFetchUser]);
 
   console.log(isFetching, products, 'health');
   return (
