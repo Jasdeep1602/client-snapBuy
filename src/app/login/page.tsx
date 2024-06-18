@@ -8,6 +8,7 @@ import { authLogin } from '@/redux/slices/auth';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import CustomButton from '@/components/CustomButton';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
 function Login() {
   const dispatch = useAppDispatch();
@@ -19,6 +20,12 @@ function Login() {
     email: '',
     password: '',
   });
+
+  const [togglevisible, setToggleVisible] = useState(false);
+
+  const handleVisible = () => {
+    setToggleVisible(!togglevisible);
+  };
 
   const handleInput = (e: any) => {
     const { name, value } = e.target;
@@ -98,7 +105,7 @@ function Login() {
           <div>
             <div className="relative mt-2 w-full">
               <input
-                type="password"
+                type={togglevisible ? 'text' : 'password'}
                 id="password"
                 name="password"
                 value={user?.password}
@@ -106,6 +113,7 @@ function Login() {
                 placeholder=" "
                 onChange={handleInput}
               />
+
               <label
                 htmlFor="password"
                 className="origin-[0] peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-blue-600 absolute left-1 top-2 z-10 -translate-y-4 scale-75 transform cursor-text select-none bg-white px-2 text-sm text-gray-500 duration-300"
@@ -113,6 +121,18 @@ function Login() {
                 {' '}
                 Enter Your Password
               </label>
+              <button
+                type="button"
+                aria-label="password"
+                className="absolute right-4 top-3 "
+                onClick={handleVisible}
+              >
+                {togglevisible ? (
+                  <EyeIcon className=" text-gray-400  w-5 h-5 md:w-4 md:h-4" />
+                ) : (
+                  <EyeSlashIcon className=" text-gray-400  w-5 h-5 md:w-4 md:h-4" />
+                )}
+              </button>
             </div>
           </div>
           <div className="flex w-full items-center">

@@ -4,6 +4,7 @@ import CustomButton from '@/components/CustomButton';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 /* eslint-disable react/no-unescaped-entities */
 import { authRegister } from '@/redux/slices/auth';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
@@ -20,6 +21,12 @@ function Register() {
     email: '',
     password: '',
   });
+
+  const [togglevisible, setToggleVisible] = useState(false);
+
+  const handleVisible = () => {
+    setToggleVisible(!togglevisible);
+  };
 
   const handleInput = (e: any) => {
     const { name, value } = e.target;
@@ -108,7 +115,7 @@ function Register() {
           <div>
             <div className="relative mt-2 w-full">
               <input
-                type="password"
+                type={togglevisible ? 'text' : 'password'}
                 id="password"
                 name="password"
                 value={user.password}
@@ -123,6 +130,18 @@ function Register() {
                 {' '}
                 Enter Your Password
               </label>
+              <button
+                type="button"
+                aria-label="password"
+                className="absolute right-4 top-3 "
+                onClick={handleVisible}
+              >
+                {togglevisible ? (
+                  <EyeIcon className=" text-gray-400  w-5 h-5 md:w-4 md:h-4" />
+                ) : (
+                  <EyeSlashIcon className=" text-gray-400  w-5 h-5 md:w-4 md:h-4" />
+                )}
+              </button>
             </div>
           </div>
           <div className="flex w-full items-center">
