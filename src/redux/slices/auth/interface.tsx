@@ -1,5 +1,7 @@
 export declare interface AuthState {
   token: any;
+  isLogged: boolean;
+  isAdmin: boolean;
   isRegFetching: boolean;
   isLoginFetching: boolean;
 }

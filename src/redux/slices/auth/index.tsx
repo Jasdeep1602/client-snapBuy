@@ -5,6 +5,8 @@ import { FetchAuthInterface, AuthState } from './interface';
 
 const initialState = {
   token: null,
+  isLogged: false,
+  isAdmin: false,
   isLoginFetching: false,
   isRegFetching: false,
 } as AuthState;
@@ -128,6 +130,14 @@ const AuthSlice = createSlice({
       const state = init;
       state.token = action.payload;
     },
+    setIsLogged(init, action) {
+      const state = init;
+      state.isLogged = action.payload;
+    },
+    setIsAdmin(init, action) {
+      const state = init;
+      state.isAdmin = action.payload;
+    },
     // setIsInvalidUser(init, action) {
     //   const state = init;
     //   state.isInvalidUser = action.payload;
@@ -190,4 +200,6 @@ const AuthSlice = createSlice({
     });
   },
 });
+
+export const { setIsLogged, setIsAdmin } = AuthSlice.actions;
 export default AuthSlice.reducer;

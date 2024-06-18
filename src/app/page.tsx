@@ -9,7 +9,7 @@ import Sales from '@/components/Sales';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { useCallback, useEffect } from 'react';
 import { getProducts } from '@/redux/slices/products';
-import { authRefreshToken } from '@/redux/slices/auth';
+import { authRefreshToken, setIsAdmin, setIsLogged } from '@/redux/slices/auth';
 import axios from 'axios';
 // import axios from 'axios';
 
@@ -29,10 +29,18 @@ export default function Home() {
       console.log(res, 'Token refreshed');
       if (res?.payload?.accesstoken) {
         const resToken = res.payload.accesstoken;
+
         const userRes = await axios.get('http://localhost:5000/user/infor', {
-          headers: { Authorization: `Bearer ${resToken}` },
+          headers: { Authorization: resToken },
         });
         console.log(userRes, 'User info');
+        dispatch(setIsLogged(true));
+        // Check user role and dispatch setIsAdmin action
+        if (userRes?.data?.role === 1) {
+          dispatch(setIsAdmin(true));
+        } else {
+          dispatch(setIsAdmin(false));
+        }
       }
     } catch (err) {
       console.error('Error refreshing token or fetching user info', err);
