@@ -10,6 +10,7 @@ import Sales from '@/components/Sales';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { getProducts } from '@/redux/slices/products';
 import Header from '@/components/Header';
+import TopSales from '@/components/TopSales';
 
 function Home() {
   const dispatch = useAppDispatch();
@@ -18,7 +19,7 @@ function Home() {
   useEffect(() => {
     dispatch(getProducts({}));
   }, [dispatch]);
-  console.log(isFetching, products, 'health');
+  console.log(isFetching, products?.products, 'go');
 
   return (
     <div>
@@ -28,6 +29,7 @@ function Home() {
         <Hero heroapi={heroapi} />
         <Sales popularSales={popularSales} ifExists />
         <Highlight highlightAPI={highlightAPI} ifExists />
+        <TopSales products={products?.products} />
         <Highlight highlightAPI={sneakerAPI} />
       </main>
       <Footer footerAPI={footerAPI} />
