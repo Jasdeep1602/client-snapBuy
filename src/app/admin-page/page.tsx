@@ -5,7 +5,7 @@
 
 import CustomButton from '@/components/CustomButton';
 
-import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { useAppSelector } from '@/hooks/redux';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
 import Image from 'next/image';
@@ -36,6 +36,7 @@ export default function CreateProduct() {
   };
   const [productdetails, setProductDetails] =
     useState<InitialProductDetailsProps>(initialProductDetails);
+  const [productcreated, setProductCreated] = useState(false);
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
@@ -55,6 +56,7 @@ export default function CreateProduct() {
         formData.append('file', file);
         const userRes = await axios.post('http://localhost:5000/api/upload', formData, {
           headers: { 'Content-Type': 'multipart/form-data', Authorization: token },
+          withCredentials: true,
         });
         console.log(userRes?.data, 'upsuccess');
 
@@ -81,10 +83,27 @@ export default function CreateProduct() {
     }
   };
 
-  const handleCreateProduct = (e: any) => {
+  const handleCreateProduct = async (e: any) => {
     e.preventDefault();
-    console.log(productdetails, 'submit');
-    setProductDetails(initialProductDetails);
+    setProductCreated(true);
+
+    try {
+      console.log('helo');
+
+      await axios.post('http://localhost:5000/api/products', productdetails, {
+        headers: {
+          Authorization: token,
+        },
+        withCredentials: true,
+      });
+      toast.success('Product Created Successfully');
+    } catch (err) {
+      toast.error('Create Product Failed');
+    } finally {
+      console.log('Product details on submit:', productdetails);
+      setProductDetails(initialProductDetails);
+      setProductCreated(false);
+    }
   };
 
   return (
@@ -342,6 +361,7 @@ export default function CreateProduct() {
             typeButton="submit"
             className="flex items-center justify-center rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 shrink-0 "
             text="Save"
+            loadingState={productcreated}
           />
         </div>
       </form>

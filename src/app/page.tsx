@@ -11,7 +11,6 @@ import { useCallback, useEffect } from 'react';
 import { getProducts } from '@/redux/slices/products';
 import { authRefreshToken, setIsAdmin, setIsLogged } from '@/redux/slices/auth';
 import axios from 'axios';
-// import axios from 'axios';
 
 export default function Home() {
   const dispatch = useAppDispatch();

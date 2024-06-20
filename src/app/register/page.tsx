@@ -1,8 +1,9 @@
 'use client';
 
+/* eslint-disable react/no-unescaped-entities */
+
 import CustomButton from '@/components/CustomButton';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-/* eslint-disable react/no-unescaped-entities */
 import { authRegister } from '@/redux/slices/auth';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
