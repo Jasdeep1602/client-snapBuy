@@ -29,7 +29,7 @@ function Home() {
         <Hero heroapi={heroapi} />
         <Sales popularSales={popularSales} ifExists />
         <Highlight highlightAPI={highlightAPI} ifExists />
-        <TopSales products={products?.products} />
+        <TopSales shoeproducts={products?.products} />
         <Highlight highlightAPI={sneakerAPI} />
       </main>
       <Footer footerAPI={footerAPI} />

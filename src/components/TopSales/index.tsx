@@ -1,13 +1,16 @@
 'use client';
 
+/* eslint-disable no-underscore-dangle */
+
 import React from 'react';
 import { useAppSelector } from '@/hooks/redux';
 import { ProductProps } from './interface';
 import ShoeCard from './ShoeCard';
 
-function TopSales({ products }: ProductProps) {
-  console.log(products, 'sdvbsb');
+function TopSales({ shoeproducts }: ProductProps) {
+  console.log(shoeproducts, 'sdvbsb');
   const { isLogged } = useAppSelector((state) => state.auth);
+  const { isFetching, products } = useAppSelector((state) => state.products);
 
   return (
     <div className="nike-container">
@@ -25,9 +28,17 @@ function TopSales({ products }: ProductProps) {
         </div>
       )}
 
-      <div className="grid items-center justify-items-center  gap-7 lg:gap-5 mt-7 grid-cols-4 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 ">
-        {products?.map((item: any) => <ShoeCard {...item} key={item?.product_id} />)}
-      </div>
+      {isFetching || products === null ? (
+        <div className="flex gap-2 items-center justify-center min-h-80 min-w-full ">
+          <div className="w-5 h-5 rounded-full animate-pulse-fast bg-blue-600" />
+          <div className="w-5 h-5 rounded-full animate-pulse-fast bg-blue-600" />
+          <div className="w-5 h-5 rounded-full animate-pulse-fast bg-blue-600" />
+        </div>
+      ) : (
+        <div className="grid items-center justify-items-center  gap-7 lg:gap-5 mt-7 grid-cols-4 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 ">
+          {shoeproducts?.map((item: any) => <ShoeCard {...item} key={item?._id} />)}
+        </div>
+      )}
     </div>
   );
 }

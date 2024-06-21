@@ -1,8 +1,9 @@
 export interface ProductProps {
-  products: [];
+  shoeproducts: [];
 }
 
 export interface CardProps {
+  _id: string;
   product_id: string;
   title: string;
   price: string;
