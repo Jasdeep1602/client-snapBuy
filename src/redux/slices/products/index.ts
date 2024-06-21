@@ -1,13 +1,29 @@
 import { commonService } from '@/axios/services';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { InitialProductDetailsProps } from '@/app/(home)/admin-page/interface';
 import { FetchProductInterface, ProductState } from './interface';
 
+const initialProductDetails: InitialProductDetailsProps = {
+  product_id: '',
+  title: '',
+  price: '',
+  description: '',
+  images: null,
+  gradientFrom: '',
+  gradientTo: '',
+  shadowColor: '',
+  rating: '',
+};
+
 const initialState = {
+  productdetails: initialProductDetails,
   products: null,
   isFetching: false,
   isProductCreated: false,
   isImageUploaded: false,
+  productId: null,
+  updateProduct: false,
 } as ProductState;
 
 export const getProducts = createAsyncThunk(
@@ -82,7 +98,24 @@ export const uploadImage = createAsyncThunk(
 const ProductSlice = createSlice({
   name: 'products',
   initialState,
-  reducers: {},
+  reducers: {
+    setProductDetails(init, action) {
+      const state = init;
+      state.productdetails = action.payload;
+    },
+    resetProductDetails: (init) => {
+      const state = init;
+      state.productdetails = initialProductDetails;
+    },
+    setProductId: (init, action) => {
+      const state = init;
+      state.productId = action.payload;
+    },
+    setUpdateProduct: (init, action) => {
+      const state = init;
+      state.updateProduct = action.payload;
+    },
+  },
 
   // middleware extended reducers
   extraReducers: (builder) => {
@@ -135,4 +168,8 @@ const ProductSlice = createSlice({
     });
   },
 });
+
+export const { setProductDetails, resetProductDetails, setProductId, setUpdateProduct } =
+  ProductSlice.actions;
+
 export default ProductSlice.reducer;

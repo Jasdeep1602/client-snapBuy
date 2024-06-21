@@ -10,7 +10,13 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import './card.css';
 import axios from 'axios';
 import { toast } from 'sonner';
-import { getProducts } from '@/redux/slices/products';
+import {
+  getProducts,
+  setProductDetails,
+  setProductId,
+  setUpdateProduct,
+} from '@/redux/slices/products';
+import { useRouter } from 'next/navigation';
 import { CardProps } from './interface';
 import Modal from '../Modal';
 
@@ -27,17 +33,20 @@ export default function ShoeCard({
   rating,
 }: CardProps) {
   // global states
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const { isAdmin, isLogged, token } = useAppSelector((state) => state.auth);
+  const { productId } = useAppSelector((state) => state.products);
 
   // local state
 
   const [deleteproduct, setDeleteProduct] = useState(false);
   const [open, setOpen] = useState(false);
-  const [productId, setProductId] = useState('');
+  // const [productId, setProductId] = useState('');
 
   const handleOpenModal = (id: any) => {
-    setProductId(id);
+    // setProductId(id);
+    dispatch(setProductId(id));
     setOpen(true);
   };
 
@@ -56,6 +65,41 @@ export default function ShoeCard({
       toast.error('Product Delete Failed');
     } finally {
       setDeleteProduct(false);
+    }
+  };
+
+  const fetchProductToUpdate = async (id: any) => {
+    // setProductId(id);
+
+    dispatch(setProductId(id));
+
+    try {
+      const res = await axios.get(`http://localhost:5000/api/products/${id}`, {
+        headers: { Authorization: token },
+        withCredentials: true,
+      });
+
+      // set the product details to the selected product to form
+
+      const productData = res.data;
+      dispatch(
+        setProductDetails({
+          product_id: productData.product_id,
+          title: productData.title,
+          description: productData.description,
+          price: productData.price,
+          rating: productData.rating,
+          images: productData.images,
+          gradientFrom: productData.gradientFrom,
+          gradientTo: productData.gradientTo,
+          shadowColor: productData.shadowColor,
+        })
+      );
+      dispatch(setUpdateProduct(true));
+      toast.success('Product Fetched Successfully');
+      router.push('/admin-page');
+    } catch (err) {
+      toast.error('Product Fetch Failed');
     }
   };
 
@@ -110,6 +154,7 @@ export default function ShoeCard({
                 <button
                   type="button"
                   aria-label="shopping"
+                  onClick={() => fetchProductToUpdate(_id)}
                   className="bg-white opacity-90 blur-effect-theme button-theme p-0.5 shadow-sky-200"
                 >
                   <PencilSquareIcon className="icon-style text-slate-900" />

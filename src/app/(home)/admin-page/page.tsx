@@ -5,17 +5,22 @@
 
 import CustomButton from '@/components/CustomButton';
 
-import { useAppSelector } from '@/hooks/redux';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { toast } from 'sonner';
-import { ImageProps, InitialProductDetailsProps } from './interface';
+import { resetProductDetails, setProductDetails, setUpdateProduct } from '@/redux/slices/products';
+import {
+  ImageProps,
+  // InitialProductDetailsProps
+} from './interface';
 
 export default function CreateProduct() {
+  const dispatch = useAppDispatch();
   const { token } = useAppSelector((state) => state.auth);
-  // const { isProductCreated, isImageUploaded } = useAppSelector((state) => state.products);
+  const { productdetails, productId, updateProduct } = useAppSelector((state) => state.products);
 
   // local state
   const [isImageUploading, setIsImageUploading] = useState(false);
@@ -23,24 +28,25 @@ export default function CreateProduct() {
 
   // Define a type for the image object
 
-  const initialProductDetails: InitialProductDetailsProps = {
-    product_id: '',
-    title: '',
-    price: '',
-    description: '',
-    images: null,
-    gradientFrom: '',
-    gradientTo: '',
-    shadowColor: '',
-    rating: '',
-  };
-  const [productdetails, setProductDetails] =
-    useState<InitialProductDetailsProps>(initialProductDetails);
+  // const initialProductDetails: InitialProductDetailsProps = {
+  //   product_id: '',
+  //   title: '',
+  //   price: '',
+  //   description: '',
+  //   images: null,
+  //   gradientFrom: '',
+  //   gradientTo: '',
+  //   shadowColor: '',
+  //   rating: '',
+  // };
+  // const [productdetails, setProductDetails] =
+  //   useState<InitialProductDetailsProps>(initialProductDetails);
   const [productcreated, setProductCreated] = useState(false);
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
-    setProductDetails({ ...productdetails, [name]: value });
+    // setProductDetails({ ...productdetails, [name]: value });
+    dispatch(setProductDetails({ ...productdetails, [name]: value }));
   };
 
   // image upload api call
@@ -59,7 +65,9 @@ export default function CreateProduct() {
         });
 
         toast.success('Image Upload Success');
-        setProductDetails({ ...productdetails, images: userRes?.data as ImageProps });
+        // setProductDetails({ ...productdetails, images: userRes?.data as ImageProps });
+
+        dispatch(setProductDetails({ ...productdetails, images: userRes?.data as ImageProps }));
       } catch (error) {
         toast.error('Image Upload Error');
       } finally {
@@ -75,46 +83,103 @@ export default function CreateProduct() {
 
   const handleCancelCreateProduct = (e: any) => {
     e.preventDefault();
-    setProductDetails(initialProductDetails);
+    // setProductDetails(initialProductDetails);
+
+    dispatch(resetProductDetails());
     if (fileInputRef.current) {
       fileInputRef.current.value = ''; // Reset the file input
     }
+
+    dispatch(setUpdateProduct(false));
   };
 
   const handleImageClear = () => {
-    setProductDetails({ ...productdetails, images: null });
+    // setProductDetails({ ...productdetails, images: null });
+    dispatch(setProductDetails({ ...productdetails, images: null }));
+
     if (fileInputRef.current) {
       fileInputRef.current.value = ''; // Reset the file input
     }
   };
 
-  const handleCreateProduct = async (e: any) => {
+  const handleCreateAndUpdateProduct = async (e: any) => {
     e.preventDefault();
-    setProductCreated(true);
 
-    try {
-      await axios.post('http://localhost:5000/api/products', productdetails, {
-        headers: {
-          Authorization: token,
-        },
-        withCredentials: true,
-      });
-      toast.success('Product Created Successfully');
-    } catch (err) {
-      toast.error('Create Product Failed');
-    } finally {
-      setProductDetails(initialProductDetails);
-      setProductCreated(false);
+    // update the product if updateProduct true, else create product
+
+    if (updateProduct) {
+      setProductCreated(true);
+
+      try {
+        await axios.put(`http://localhost:5000/api/products/${productId}`, productdetails, {
+          headers: {
+            Authorization: token,
+          },
+          withCredentials: true,
+        });
+        toast.success('Product Updated Successfully');
+      } catch (err) {
+        toast.error('Create Update Failed');
+      } finally {
+        // setProductDetails(initialProductDetails);
+        dispatch(resetProductDetails());
+        setProductCreated(false);
+        dispatch(setUpdateProduct(false));
+      }
+    } else {
+      setProductCreated(true);
+
+      try {
+        await axios.post('http://localhost:5000/api/products', productdetails, {
+          headers: {
+            Authorization: token,
+          },
+          withCredentials: true,
+        });
+        toast.success('Product Created Successfully');
+      } catch (err) {
+        toast.error('Create Product Failed');
+      } finally {
+        // setProductDetails(initialProductDetails);
+        dispatch(resetProductDetails());
+        setProductCreated(false);
+      }
     }
   };
 
+  // update product
+
+  // const handleUpdateProduct = async (e: any) => {
+  //   e.preventDefault();
+  //   setProductCreated(true);
+
+  //   try {
+  //     await axios.put(`http://localhost:5000/api/products/${productId}`, productdetails, {
+  //       headers: {
+  //         Authorization: token,
+  //       },
+  //       withCredentials: true,
+  //     });
+  //     toast.success('Product Updated Successfully');
+  //   } catch (err) {
+  //     toast.error('Create Update Failed');
+  //   } finally {
+  //     // setProductDetails(initialProductDetails);
+  //     dispatch(resetProductDetails());
+  //     setProductCreated(false);
+  //   }
+  // };
+
   return (
     <div className="m-12 p-5 flex justify-center items-center border border-gray-900/10 pb-12 rounded">
-      <form onSubmit={handleCreateProduct}>
+      <form onSubmit={handleCreateAndUpdateProduct}>
         <div className="space-y-12">
-          <h2 className="text-3xl font-semibold leading-7 text-blue-500">Create Product</h2>
+          <h2 className="text-3xl font-semibold leading-7 text-blue-500">
+            {updateProduct ? 'Update' : 'Create'} Product
+          </h2>
           <p className="text-sm leading-6 text-gray-600">
-            Fill all the details to create a new product.
+            Fill all the details to{' '}
+            {updateProduct ? 'update a existing product' : 'create a new product'}.
           </p>
 
           <div className="mt-10 grid  gap-x-48 gap-y-10 grid-cols-2">
@@ -133,10 +198,11 @@ export default function CreateProduct() {
                     id="product_id"
                     value={productdetails?.product_id}
                     autoComplete="Product ID"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    className={`block flex-1 border-0 ${updateProduct ? ' bg-slate-100' : 'bg-transparent'} py-1.5 pl-1 ${updateProduct ? ' text-gray-400' : 'text-gray-900'} placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6`}
                     onChange={handleInputChange}
                     placeholder=""
                     required
+                    disabled={updateProduct}
                   />
                 </div>
               </div>
@@ -369,7 +435,7 @@ export default function CreateProduct() {
           <CustomButton
             typeButton="submit"
             className="flex items-center justify-center rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 shrink-0 "
-            text="Save"
+            text={updateProduct ? 'Update' : 'Save'}
             loadingState={productcreated}
           />
         </div>
