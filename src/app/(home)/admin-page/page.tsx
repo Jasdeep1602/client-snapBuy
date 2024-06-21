@@ -42,7 +42,6 @@ export default function CreateProduct() {
     const { name, value } = e.target;
     setProductDetails({ ...productdetails, [name]: value });
   };
-  console.log(token, 'bcbvhjsbbvhas');
 
   // image upload api call
 
@@ -58,7 +57,6 @@ export default function CreateProduct() {
           headers: { 'Content-Type': 'multipart/form-data', Authorization: token },
           withCredentials: true,
         });
-        console.log(userRes?.data, 'upsuccess');
 
         toast.success('Image Upload Success');
         setProductDetails({ ...productdetails, images: userRes?.data as ImageProps });
@@ -83,13 +81,18 @@ export default function CreateProduct() {
     }
   };
 
+  const handleImageClear = () => {
+    setProductDetails({ ...productdetails, images: null });
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''; // Reset the file input
+    }
+  };
+
   const handleCreateProduct = async (e: any) => {
     e.preventDefault();
     setProductCreated(true);
 
     try {
-      console.log('helo');
-
       await axios.post('http://localhost:5000/api/products', productdetails, {
         headers: {
           Authorization: token,
@@ -100,7 +103,6 @@ export default function CreateProduct() {
     } catch (err) {
       toast.error('Create Product Failed');
     } finally {
-      console.log('Product details on submit:', productdetails);
       setProductDetails(initialProductDetails);
       setProductCreated(false);
     }
@@ -327,6 +329,12 @@ export default function CreateProduct() {
                   <p className="text-xs leading-5 text-gray-600">PNG, JPG up to 10MB</p>
                 </div>
               </div>
+              <CustomButton
+                typeButton="button"
+                className="flex items-center justify-center rounded-md bg-rose-700 mt-2 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-500 shrink-0 "
+                text="Clear Image"
+                onClick={handleImageClear}
+              />
               {productdetails?.images?.url && (
                 <div className="mt-4 flex justify-center">
                   <Image

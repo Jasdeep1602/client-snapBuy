@@ -28,7 +28,6 @@ export const authLogin = createAsyncThunk(
         cancelToken: source.token,
       });
 
-      console.log(resp, 'helth');
       return resp?.data;
     } catch (error: any) {
       return thunkAPI?.rejectWithValue(error?.message);
@@ -51,7 +50,6 @@ export const authRegister = createAsyncThunk(
         cancelToken: source.token,
       });
 
-      console.log(resp, 'helth');
       return resp?.data;
     } catch (error: any) {
       return thunkAPI?.rejectWithValue(error?.message);
@@ -75,7 +73,6 @@ export const authRefreshToken = createAsyncThunk(
         cancelToken: source.token,
       });
 
-      console.log(resp, 'asynctoken');
       return resp?.data;
     } catch (error: any) {
       return thunkAPI?.rejectWithValue(error?.message);
@@ -99,7 +96,6 @@ export const authLogout = createAsyncThunk(
         cancelToken: source.token,
       });
 
-      console.log(resp, 'asynctoken');
       return resp?.data;
     } catch (error: any) {
       return thunkAPI?.rejectWithValue(error?.message);

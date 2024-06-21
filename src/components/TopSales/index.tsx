@@ -8,7 +8,6 @@ import { ProductProps } from './interface';
 import ShoeCard from './ShoeCard';
 
 function TopSales({ shoeproducts }: ProductProps) {
-  console.log(shoeproducts, 'sdvbsb');
   const { isLogged } = useAppSelector((state) => state.auth);
   const { isFetching, products } = useAppSelector((state) => state.products);
 

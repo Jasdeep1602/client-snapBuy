@@ -26,7 +26,6 @@ export const getProducts = createAsyncThunk(
         cancelToken: source.token,
       });
 
-      console.log(resp, 'helth');
       return resp?.data;
     } catch (error: any) {
       return thunkAPI?.rejectWithValue(error?.message);
@@ -50,7 +49,6 @@ export const createProduct = createAsyncThunk(
         cancelToken: source.token,
       });
 
-      console.log(resp, 'created product');
       return resp?.data;
     } catch (error: any) {
       return thunkAPI?.rejectWithValue(error?.message);
@@ -74,7 +72,6 @@ export const uploadImage = createAsyncThunk(
         cancelToken: source.token,
       });
 
-      console.log(resp, 'image uploaded');
       return resp?.data;
     } catch (error: any) {
       return thunkAPI?.rejectWithValue(error?.message);
@@ -98,8 +95,6 @@ const ProductSlice = createSlice({
     builder.addCase(getProducts.fulfilled, (init, action) => {
       const state = init;
       state.products = action.payload;
-      console.log(action.payload, 'hwhfw');
-
       state.isFetching = false;
     });
     builder.addCase(getProducts.rejected, (init) => {
@@ -116,8 +111,6 @@ const ProductSlice = createSlice({
     builder.addCase(createProduct.fulfilled, (init, action) => {
       const state = init;
       state.products = action.payload;
-      console.log(action.payload, 'hwhfw');
-
       state.isProductCreated = false;
     });
     builder.addCase(createProduct.rejected, (init) => {
@@ -134,8 +127,6 @@ const ProductSlice = createSlice({
     builder.addCase(uploadImage.fulfilled, (init, action) => {
       const state = init;
       state.products = action.payload;
-      console.log(action.payload, 'hwhfw');
-
       state.isImageUploaded = false;
     });
     builder.addCase(uploadImage.rejected, (init) => {

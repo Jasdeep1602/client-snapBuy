@@ -42,7 +42,6 @@ export default function ShoeCard({
   };
 
   const handleDelete = async () => {
-    console.log(productId, 'id found');
     setDeleteProduct(true);
     try {
       await axios.delete(`http://localhost:5000/api/products/${productId}`, {
