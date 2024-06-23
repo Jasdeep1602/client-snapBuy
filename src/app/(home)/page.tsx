@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { getProducts } from '@/redux/slices/products';
 import Header from '@/components/Header';
 import TopSales from '@/components/TopSales';
+import Cart from '@/components/Cart';
 
 function Home() {
   const dispatch = useAppDispatch();
@@ -24,7 +25,7 @@ function Home() {
   return (
     <div>
       <Header />
-
+      <Cart />
       <main className="flex flex-col gap-16 relative">
         <Hero heroapi={heroapi} />
         <Sales popularSales={popularSales} ifExists />

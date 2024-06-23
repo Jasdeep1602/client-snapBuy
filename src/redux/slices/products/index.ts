@@ -26,6 +26,7 @@ const initialState = {
   isImageUploaded: false,
   productId: null,
   updateProduct: false,
+  cartToggle: false,
 } as ProductState;
 
 export const getProducts = createAsyncThunk(
@@ -127,6 +128,16 @@ const ProductSlice = createSlice({
       const state = init;
       state.cart = action.payload;
     },
+
+    setCartToggle: (init, action) => {
+      const state = init;
+      state.cartToggle = action.payload;
+    },
+
+    setClearCart: (init) => {
+      const state = init;
+      state.cart = [];
+    },
   },
 
   // middleware extended reducers
@@ -188,6 +199,8 @@ export const {
   setUpdateProduct,
   setUserInfo,
   setCart,
+  setCartToggle,
+  setClearCart,
 } = ProductSlice.actions;
 
 export default ProductSlice.reducer;

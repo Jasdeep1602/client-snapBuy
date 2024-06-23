@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { authLogout, setIsAdmin, setIsLogged } from '@/redux/slices/auth';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { setCartToggle } from '@/redux/slices/products';
 import CustomButton from '../CustomButton';
 
 function Header() {
@@ -24,6 +25,10 @@ function Header() {
     } else {
       setNavState(false);
     }
+  };
+
+  const handleCartOpen = () => {
+    dispatch(setCartToggle(true));
   };
 
   const handleLogout = async () => {
@@ -92,6 +97,7 @@ function Header() {
             <button
               type="button"
               className="border-none outline-none active:scale-110 transition-all duration-300 relative"
+              onClick={handleCartOpen}
             >
               <ShoppingBagIcon
                 className={`icon-style ${navState && 'text-slate-900 transition-all duration-300'}`}
@@ -103,7 +109,7 @@ function Header() {
                     : 'bg-slate-100 text-slate-900 shadow-slate-100'
                 }`}
               >
-                scsc{' '}
+                1
               </div>
             </button>
           </li>
