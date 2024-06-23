@@ -130,13 +130,22 @@ export default function ShoeCard({
           </div>
           <div className="flex items-center gap-3">
             {isLogged && !isAdmin && (
-              <button
-                type="button"
-                aria-label="shopping"
-                className="bg-white opacity-90 blur-effect-theme button-theme p-0.5 shadow-sky-200"
-              >
-                <ShoppingBagIcon className="icon-style text-slate-900" />
-              </button>
+              <>
+                <button
+                  type="button"
+                  aria-label="shopping"
+                  className="bg-white opacity-90 blur-effect-theme button-theme p-0.5 shadow-sky-200"
+                >
+                  <ShoppingBagIcon className="icon-style text-slate-900" />
+                </button>
+                <button
+                  type="button"
+                  aria-label="shopping"
+                  className="bg-white opacity-90 blur-effect-theme button-theme px-2 py-1 shadow-sky-200 text-sm font-medium text-black"
+                >
+                  Buy Now
+                </button>
+              </>
             )}
             {isAdmin && (
               <>

@@ -19,6 +19,8 @@ const initialProductDetails: InitialProductDetailsProps = {
 const initialState = {
   productdetails: initialProductDetails,
   products: null,
+  userInfo: null,
+  cart: [],
   isFetching: false,
   isProductCreated: false,
   isImageUploaded: false,
@@ -115,6 +117,16 @@ const ProductSlice = createSlice({
       const state = init;
       state.updateProduct = action.payload;
     },
+
+    setUserInfo: (init, action) => {
+      const state = init;
+      state.userInfo = action.payload;
+    },
+
+    setCart: (init, action) => {
+      const state = init;
+      state.cart = action.payload;
+    },
   },
 
   // middleware extended reducers
@@ -122,7 +134,7 @@ const ProductSlice = createSlice({
     // - - - - GET Product   - - - - - - - -
     builder.addCase(getProducts.pending, (init) => {
       const state = init;
-      // state.data = null;
+      // state.products = null;
       state.isFetching = true;
     });
     builder.addCase(getProducts.fulfilled, (init, action) => {
@@ -169,7 +181,13 @@ const ProductSlice = createSlice({
   },
 });
 
-export const { setProductDetails, resetProductDetails, setProductId, setUpdateProduct } =
-  ProductSlice.actions;
+export const {
+  setProductDetails,
+  resetProductDetails,
+  setProductId,
+  setUpdateProduct,
+  setUserInfo,
+  setCart,
+} = ProductSlice.actions;
 
 export default ProductSlice.reducer;

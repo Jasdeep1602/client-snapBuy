@@ -6,6 +6,8 @@ export declare interface ProductState {
   isProductCreated: boolean;
   isImageUploaded: boolean;
   updateProduct: boolean;
+  userInfo: any;
+  cart: any;
 }
 
 export declare interface FetchProductInterface {
