@@ -28,7 +28,7 @@ function CartEmpty() {
         onClick={handleCartClose}
       >
         <ArrowLeftIcon className="w-5 h-5 text-slate-900" />
-        <span className="">Back To Nike Store</span>
+        <span className="">Back To snapBuy</span>
       </button>
     </div>
   );

@@ -15,9 +15,7 @@ import Cart from '@/components/Cart';
 
 function Home() {
   const dispatch = useAppDispatch();
-  const { products, userInfo } = useAppSelector((state) => state.products);
-
-  const userName = userInfo?.name;
+  const { products } = useAppSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(getProducts({}));
@@ -25,7 +23,7 @@ function Home() {
 
   return (
     <div>
-      <Header userName={userName} />
+      <Header />
       <Cart />
       <main className="flex flex-col gap-16 relative">
         <Hero heroapi={heroapi} />

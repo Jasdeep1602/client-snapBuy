@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 import { selectTotalQuantity, setCartToggle } from '@/redux/slices/products';
 import CustomButton from '../CustomButton';
 
-function Header({ userName }: any) {
+function Header() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const totalQuantity = useAppSelector(selectTotalQuantity);
@@ -71,17 +71,12 @@ function Header({ userName }: any) {
       <nav className="flex items-center justify-between nike-container">
         <div className="flex items-center gap-4">
           <Image
-            src="/logo.png"
+            src="/shoelogo1.png"
             width={500} // Adjust the width value in pixels
             height={500} // Height value will be auto
             alt="logo/img"
-            className={`w-16 h-auto ${navState && 'filter brightness-0'}`}
+            className={`w-44 h-auto ${navState && 'filter brightness-0'}`}
           />
-          <p
-            className={`${navState ? 'text-slate-800' : 'text-slate-200'}  filter text-base md:text-sm  font-semibold`}
-          >
-            Hi, {userName}
-          </p>
         </div>
 
         <ul className="flex items-center justify-center gap-2">
