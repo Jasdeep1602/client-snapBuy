@@ -12,9 +12,12 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import {
   getProducts,
+  setCart,
+  setIsCartFetching,
   setProductDetails,
   setProductId,
   setUpdateProduct,
+  setUserInfo,
 } from '@/redux/slices/products';
 import { useRouter } from 'next/navigation';
 import { CardProps } from './interface';
@@ -36,7 +39,7 @@ export default function ShoeCard({
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { isAdmin, isLogged, token } = useAppSelector((state) => state.auth);
-  const { productId } = useAppSelector((state) => state.products);
+  const { productId, cart, userInfo } = useAppSelector((state) => state.products);
 
   // local state
 
@@ -103,6 +106,41 @@ export default function ShoeCard({
     }
   };
 
+  // add item to cart
+
+  const handleAddToCart = async () => {
+    const itemData = {
+      _id,
+      product_id,
+      title,
+      price,
+      description,
+      images,
+      gradientFrom,
+      gradientTo,
+      shadowColor,
+      quantity: 1,
+    };
+    try {
+      dispatch(setIsCartFetching(true));
+      const res = await axios.post('http://localhost:5000/user/add-to-cart', itemData, {
+        headers: { Authorization: token },
+        withCredentials: true,
+      });
+
+      toast.success('Item Added to Cart');
+      dispatch(setCart(res?.data?.user?.cart));
+      dispatch(setUserInfo(res?.data?.user));
+
+      console.log(res, 'hellllo');
+    } catch (err) {
+      toast.error('Failed To Add Item To Cart');
+    } finally {
+      dispatch(setIsCartFetching(false));
+    }
+  };
+  console.log(cart, userInfo, 'cart');
+
   // css style from dynamic
 
   const cardBgStyle = {
@@ -135,6 +173,7 @@ export default function ShoeCard({
                   type="button"
                   aria-label="shopping"
                   className="bg-white opacity-90 blur-effect-theme button-theme p-0.5 shadow-sky-200"
+                  onClick={handleAddToCart}
                 >
                   <ShoppingBagIcon className="icon-style text-slate-900" />
                 </button>
@@ -142,6 +181,7 @@ export default function ShoeCard({
                   type="button"
                   aria-label="shopping"
                   className="bg-white opacity-90 blur-effect-theme button-theme px-2 py-1 shadow-sky-200 text-sm font-medium text-black"
+                  // onClick={handleAddAndOpenCArt}
                 >
                   Buy Now
                 </button>

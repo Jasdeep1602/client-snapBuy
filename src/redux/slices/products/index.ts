@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { commonService } from '@/axios/services';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
@@ -27,6 +28,7 @@ const initialState = {
   productId: null,
   updateProduct: false,
   cartToggle: false,
+  isCartFetching: false,
 } as ProductState;
 
 export const getProducts = createAsyncThunk(
@@ -134,9 +136,9 @@ const ProductSlice = createSlice({
       state.cartToggle = action.payload;
     },
 
-    setClearCart: (init) => {
+    setIsCartFetching: (init, action) => {
       const state = init;
-      state.cart = [];
+      state.isCartFetching = action.payload;
     },
   },
 
@@ -200,7 +202,7 @@ export const {
   setUserInfo,
   setCart,
   setCartToggle,
-  setClearCart,
+  setIsCartFetching,
 } = ProductSlice.actions;
 
 export default ProductSlice.reducer;

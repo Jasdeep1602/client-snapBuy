@@ -9,6 +9,7 @@ export declare interface ProductState {
   userInfo: any;
   cart: any;
   cartToggle: boolean;
+  isCartFetching: boolean;
 }
 
 export declare interface FetchProductInterface {

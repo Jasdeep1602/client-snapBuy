@@ -1,7 +1,10 @@
+'use client';
+
 import React from 'react';
 import { MinusIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import './cartitem.css';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 // import { useDispatch } from 'react-redux';
 // import {
 //   setDecreaseItemQTY,
@@ -10,8 +13,8 @@ import './cartitem.css';
 // } from '../../app/CartSlice.js';
 
 function CartItem() {
-  //   const dispatch = useDispatch();
-
+  const dispatch = useAppDispatch();
+  const { cart } = useAppSelector((state) => state.products);
   //   const onRemoveItem = () => {
   //     dispatch(
   //       setRemoveItemFromCart({
