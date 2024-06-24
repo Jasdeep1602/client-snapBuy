@@ -194,6 +194,13 @@ const ProductSlice = createSlice({
   },
 });
 
+// Create selectors to compute total amount and total quantity
+export const selectTotalAmount = (state: any) =>
+  state.products.cart.reduce((total: any, item: any) => total + item.price * item.quantity, 0);
+
+export const selectTotalQuantity = (state: any) =>
+  state.products.cart.reduce((total: any, item: any) => total + item.quantity, 0);
+
 export const {
   setProductDetails,
   resetProductDetails,

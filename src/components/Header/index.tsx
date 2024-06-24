@@ -9,12 +9,14 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { authLogout, setIsAdmin, setIsLogged } from '@/redux/slices/auth';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
-import { setCartToggle } from '@/redux/slices/products';
+import { selectTotalQuantity, setCartToggle } from '@/redux/slices/products';
 import CustomButton from '../CustomButton';
 
-function Header() {
+function Header({ userName }: any) {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const totalQuantity = useAppSelector(selectTotalQuantity);
+
   const { isLogged } = useAppSelector((state) => state.auth);
 
   const [navState, setNavState] = useState(false);
@@ -78,7 +80,7 @@ function Header() {
           <p
             className={`${navState ? 'text-slate-800' : 'text-slate-200'}  filter text-base md:text-sm  font-semibold`}
           >
-            Hey
+            Hi, {userName}
           </p>
         </div>
 
@@ -109,7 +111,7 @@ function Header() {
                     : 'bg-slate-100 text-slate-900 shadow-slate-100'
                 }`}
               >
-                1
+                {totalQuantity}
               </div>
             </button>
           </li>

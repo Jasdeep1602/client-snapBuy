@@ -1,7 +1,13 @@
+'use client';
+
+/* eslint-disable no-underscore-dangle */
 import { useAppSelector } from '@/hooks/redux';
 import React from 'react';
+import { selectTotalAmount, selectTotalQuantity } from '@/redux/slices/products';
 import CartCount from './CartCount';
 import CartEmpty from './CartEmpty';
+import CartItem from './CartItem';
+
 // import { useDispatch, useSelector } from 'react-redux'
 // import {
 //   selectCartItems,
@@ -17,7 +23,9 @@ import CartEmpty from './CartEmpty';
 // import CartItem from './cart/CartItem'
 
 function Cart() {
-  const { cartToggle } = useAppSelector((state) => state.products);
+  const { cartToggle, cart } = useAppSelector((state) => state.products);
+  const totalAmount = useAppSelector(selectTotalAmount);
+  const totalQuantity = useAppSelector(selectTotalQuantity);
   //   const dispatch = useDispatch()
   //   const ifCartState = useSelector(selectCartState)
   //   const cartItems = useSelector(selectCartItems)
@@ -53,34 +61,31 @@ function Cart() {
           cartToggle ? 'opacity-100 visible translate-x-0' : 'opacity-0 invisible translate-x-8'
         }`}
       >
-        <CartCount />
-        <CartEmpty />
-        {/* {cartItems?.length === 0 ? (
-          <CartEmpty onCartToggle={onCartToggle} />
+        <CartCount totalQuantity={totalQuantity} />
+        {cart?.length === 0 ? (
+          <CartEmpty />
         ) : (
           <div>
-            <div className="flex items-start justify-start flex-col gap-y-7 lg:gap-y-5 overflow-y-scroll h-[81vh] scroll-smooth scroll-hidden py-3">
-              {cartItems?.map((item, i) => <CartItem key={i} item={item} />)}
+            <div className="flex items-start justify-start flex-col gap-y-4 lg:gap-y-4 overflow-y-scroll h-[81vh] scroll-smooth scroll-hidden py-2">
+              {cart?.map((item: any) => <CartItem key={item._id} item={item} />)}
             </div>
 
-            <div className="fixed bottom-0 bg-white w-full px-5 py-2 grid items-center">
+            <div className="fixed bottom-0 bg-white w-full px-5 py-2 grid items-center blur-effect-theme">
               <div className="flex items-center justify-between">
-                <h1 className="text-base font-semibold uppercase">SubTotal</h1>
+                <h1 className="text-base font-semibold uppercase text-blue-600">SubTotal</h1>
                 <h1 className="text-sm rounded bg-theme-cart text-slate-100 px-1 py-0.5">
-                  ${totalAmount}
+                  $ {totalAmount}
                 </h1>
               </div>
               <div className="grid items-center gap-2">
-                <p className="text-sm font-medium text-center">
-                  Taxes and Shipping Will Calculate At Shipping
-                </p>
+                <p className="text-sm font-medium text-center">No Tax Or Shipping Charge</p>
                 <button type="button" className="button-theme bg-theme-cart text-white">
                   Check Out
                 </button>
               </div>
             </div>
           </div>
-        )} */}
+        )}
       </div>
     </div>
   );

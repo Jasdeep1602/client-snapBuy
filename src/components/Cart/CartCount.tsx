@@ -3,9 +3,9 @@
 import React from 'react';
 import { ChevronDoubleLeftIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { useAppDispatch } from '@/hooks/redux';
-import { setCartToggle, setClearCart } from '@/redux/slices/products';
+import { setCartToggle } from '@/redux/slices/products';
 
-function CartCount() {
+function CartCount({ totalQuantity }: any) {
   const dispatch = useAppDispatch();
 
   const handleCartClose = () => {
@@ -31,7 +31,7 @@ function CartCount() {
           <h1 className="text-base font-medium text-slate-900">
             Your Cart
             <span className="bg-theme-cart rounded  ml-1 px-1 py-0.5 text-slate-100 font-normal text-xs">
-              ( Items)
+              [ {totalQuantity} Items ]
             </span>
           </h1>
         </div>
