@@ -15,14 +15,13 @@ import Cart from '@/components/Cart';
 
 function Home() {
   const dispatch = useAppDispatch();
-  const { isFetching, products, userInfo } = useAppSelector((state) => state.products);
+  const { products, userInfo } = useAppSelector((state) => state.products);
 
   const userName = userInfo?.name;
 
   useEffect(() => {
     dispatch(getProducts({}));
   }, [dispatch]);
-  console.log(isFetching, products?.products, 'go');
 
   return (
     <div>

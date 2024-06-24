@@ -2,18 +2,31 @@
 
 import React from 'react';
 import { ChevronDoubleLeftIcon, XMarkIcon } from '@heroicons/react/24/solid';
-import { useAppDispatch } from '@/hooks/redux';
-import { setCartToggle } from '@/redux/slices/products';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { setCart, setCartToggle, setUserInfo } from '@/redux/slices/products';
+import axios from 'axios';
+import { toast } from 'sonner';
 
 function CartCount({ totalQuantity }: any) {
   const dispatch = useAppDispatch();
+  const { token } = useAppSelector((state) => state.auth);
 
   const handleCartClose = () => {
     dispatch(setCartToggle(false));
   };
 
-  const handleCartClear = () => {
-    dispatch(setClearCart());
+  const handleCartClear = async () => {
+    try {
+      const res = await axios.put(`http://localhost:5000/user/emptycart`, null, {
+        headers: { Authorization: token },
+        withCredentials: true,
+      });
+      toast.success('Cart Empty');
+      dispatch(setCart(res?.data?.user?.cart));
+      dispatch(setUserInfo(res?.data?.user));
+    } catch {
+      toast.error('FAiled To Empty Cart');
+    }
   };
 
   return (

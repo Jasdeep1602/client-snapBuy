@@ -13,6 +13,7 @@ import { toast } from 'sonner';
 import {
   getProducts,
   setCart,
+  setCartToggle,
   setIsCartFetching,
   setProductDetails,
   setProductId,
@@ -39,7 +40,7 @@ export default function ShoeCard({
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { isAdmin, isLogged, token } = useAppSelector((state) => state.auth);
-  const { productId, cart, userInfo } = useAppSelector((state) => state.products);
+  const { productId } = useAppSelector((state) => state.products);
 
   // local state
 
@@ -131,16 +132,17 @@ export default function ShoeCard({
       toast.success('Item Added to Cart');
       dispatch(setCart(res?.data?.user?.cart));
       dispatch(setUserInfo(res?.data?.user));
-
-      console.log(res, 'hellllo');
     } catch (err) {
       toast.error('Failed To Add Item To Cart');
     } finally {
       dispatch(setIsCartFetching(false));
     }
   };
-  console.log(cart, userInfo, 'cart');
 
+  const handleAddAndOpenCArt = () => {
+    handleAddToCart();
+    dispatch(setCartToggle(true));
+  };
   // css style from dynamic
 
   const cardBgStyle = {
@@ -181,7 +183,7 @@ export default function ShoeCard({
                   type="button"
                   aria-label="shopping"
                   className="bg-white opacity-90 blur-effect-theme button-theme px-2 py-1 shadow-sky-200 text-sm font-medium text-black"
-                  // onClick={handleAddAndOpenCArt}
+                  onClick={handleAddAndOpenCArt}
                 >
                   Buy Now
                 </button>

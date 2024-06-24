@@ -15,7 +15,7 @@ export default function RootLayout({
       <body>
         <ReduxProvider>
           {children}
-          <Toaster richColors position="top-center" />
+          <Toaster richColors position="top-center" toastOptions={{ duration: 4000 }} />
         </ReduxProvider>
       </body>
     </html>

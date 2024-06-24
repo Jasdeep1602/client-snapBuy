@@ -6,15 +6,15 @@ import React from 'react';
 import { MinusIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import './cartitem.css';
-// import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-// import { useDispatch } from 'react-redux';
-// import {
-//   setDecreaseItemQTY,
-//   setIncreaseItemQTY,
-//   setRemoveItemFromCart,
-// } from '../../app/CartSlice.js';
+import axios from 'axios';
+import { toast } from 'sonner';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { setCart, setUserInfo } from '@/redux/slices/products';
 
 function CartItem({ item }: any) {
+  const dispatch = useAppDispatch();
+  const { token } = useAppSelector((state) => state.auth);
+
   const {
     description,
     gradientFrom,
@@ -27,51 +27,48 @@ function CartItem({ item }: any) {
     title,
     _id,
   } = item;
-  //   const dispatch = useAppDispatch();
-  //   const { cart } = useAppSelector((state) => state.products);
-  //   const onRemoveItem = () => {
-  //     dispatch(
-  //       setRemoveItemFromCart({
-  //         id,
-  //         title,
-  //         text,
-  //         img,
-  //         color,
-  //         shadow,
-  //         price,
-  //         cartQuantity,
-  //       })
-  //     );
-  //   };
 
-  //   const onIncreaseItemQTY = () => {
-  //     dispatch(
-  //       setIncreaseItemQTY({
-  //         id,
-  //         title,
-  //         text,
-  //         img,
-  //         color,
-  //         shadow,
-  //         price,
-  //         cartQuantity,
-  //       })
-  //     );
-  //   };
-  //   const onDecreaseItemQTY = () => {
-  //     dispatch(
-  //       setDecreaseItemQTY({
-  //         id,
-  //         title,
-  //         text,
-  //         img,
-  //         color,
-  //         shadow,
-  //         price,
-  //         cartQuantity,
-  //       })
-  //     );
-  //   };
+  const handleRemoveItem = async (id: any) => {
+    try {
+      const res = await axios.delete(`http://localhost:5000/user/remove-from-cart/${id}`, {
+        headers: { Authorization: token },
+        withCredentials: true,
+      });
+      toast.success('Item Removed');
+      dispatch(setCart(res?.data?.user?.cart));
+      dispatch(setUserInfo(res?.data?.user));
+    } catch {
+      toast.error('Item Remove Failed');
+    }
+  };
+
+  const handleIncreaseItemQTY = async (id: any) => {
+    try {
+      const res = await axios.put(`http://localhost:5000/user/increase-quantity/${id}`, null, {
+        headers: { Authorization: token },
+        withCredentials: true,
+      });
+      toast.success('Item Quantity Increased');
+      dispatch(setCart(res?.data?.user?.cart));
+      dispatch(setUserInfo(res?.data?.user));
+    } catch {
+      toast.error('Item Quatity Increase Failed');
+    }
+  };
+
+  const handleDecreaseItemQTY = async (id: any) => {
+    try {
+      const res = await axios.put(`http://localhost:5000/user/decrease-quantity/${id}`, null, {
+        headers: { Authorization: token },
+        withCredentials: true,
+      });
+      toast.success('Item Quantity Decreased');
+      dispatch(setCart(res?.data?.user?.cart));
+      dispatch(setUserInfo(res?.data?.user));
+    } catch {
+      toast.error('Item Quantity Decrease Failed');
+    }
+  };
 
   // css style from dynamic
 
@@ -107,7 +104,7 @@ function CartItem({ item }: any) {
             <button
               type="button"
               aria-label="decrease"
-              //   onClick={onDecreaseItemQTY}
+              onClick={() => handleDecreaseItemQTY(_id)}
               className="bg-theme-cart rounded w-5 h-5 lg:w-5 lg:h-5 flex items-center justify-center active:scale-90 transition-all duration-200 ease-in-out hover:scale-105"
             >
               <MinusIcon className="w-3 h-3 lg:w-3 lg:h-3 text-white stroke-[2] " />
@@ -118,7 +115,7 @@ function CartItem({ item }: any) {
             <button
               type="button"
               aria-label="increase"
-              //   onClick={onIncreaseItemQTY}
+              onClick={() => handleIncreaseItemQTY(_id)}
               className="bg-theme-cart rounded w-5 h-5 lg:w-5 lg:h-5 flex items-center justify-center active:scale-90 transition-all duration-200 ease-in-out hover:scale-105"
             >
               <PlusIcon className="w-3 h-3 lg:w-3 lg:h-3 text-white stroke-[2]" />
@@ -135,7 +132,7 @@ function CartItem({ item }: any) {
             type="button"
             aria-label="remove"
             className="bg-theme-cart rounded w-6 h-6 lg:w-6 lg:h-6 flex items-center justify-center active:scale-90 transition-all duration-200 ease-in-out hover:scale-105"
-            // onClick={onRemoveItem}
+            onClick={() => handleRemoveItem(_id)}
           >
             <TrashIcon className="w-4 h-4 lg:w-4 lg:h-4 text-white stroke-[2]" />
           </button>

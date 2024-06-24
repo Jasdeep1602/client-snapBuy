@@ -8,47 +8,10 @@ import CartCount from './CartCount';
 import CartEmpty from './CartEmpty';
 import CartItem from './CartItem';
 
-// import { useDispatch, useSelector } from 'react-redux'
-// import {
-//   selectCartItems,
-//   selectCartState,
-//   selectTotalAmount,
-//   selectTotalQTY,
-//   setClearCartItems,
-//   setCloseCart,
-//   setGetTotals,
-// } from '../app/CartSlice.js'
-// import CartCount from './cart/CartCount'
-// import CartEmpty from './cart/CartEmpty'
-// import CartItem from './cart/CartItem'
-
 function Cart() {
   const { cartToggle, cart } = useAppSelector((state) => state.products);
   const totalAmount = useAppSelector(selectTotalAmount);
   const totalQuantity = useAppSelector(selectTotalQuantity);
-  //   const dispatch = useDispatch()
-  //   const ifCartState = useSelector(selectCartState)
-  //   const cartItems = useSelector(selectCartItems)
-  //   const totalAmount = useSelector(selectTotalAmount)
-  //   const totalQTY = useSelector(selectTotalQTY)
-
-  //   // console.log(cartItems)
-
-  //   useEffect(() => {
-  //     dispatch(setGetTotals())
-  //   }, [cartItems, dispatch])
-
-  //   const onCartToggle = () => {
-  //     dispatch(
-  //       setCloseCart({
-  //         cartState: false,
-  //       })
-  //     )
-  //   }
-
-  //   const onClearCartItems = () => {
-  //     dispatch(setClearCartItems())
-  //   }
 
   return (
     <div
