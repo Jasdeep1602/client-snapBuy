@@ -1,6 +1,6 @@
 'use client';
 
-import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { useAppDispatch } from '@/hooks/redux';
 import { useCallback, useEffect } from 'react';
 import { authRefreshToken, setIsAdmin, setIsLogged } from '@/redux/slices/auth';
 import axios from 'axios';
@@ -13,7 +13,6 @@ export default function HomeLayout({
   children: React.ReactNode;
 }>) {
   const dispatch = useAppDispatch();
-  const { userInfo, cart } = useAppSelector((state) => state.products);
 
   // Used direct axios method as token kept in cokkie was not easy to pass in the intecptors
   // We can use session storage instead of cookie for easy accessibility
@@ -46,7 +45,6 @@ export default function HomeLayout({
       toast.error('Token Refresh Failed');
     }
   }, [dispatch]);
-  console.log(userInfo, cart, 'info');
 
   useEffect(() => {
     const login = localStorage.getItem('Login');
