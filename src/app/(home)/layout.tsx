@@ -24,7 +24,7 @@ export default function HomeLayout({
       if (res?.payload?.accesstoken) {
         const resToken = res.payload.accesstoken;
 
-        const userRes = await axios.get('http://localhost:5000/user/infor', {
+        const userRes = await axios.get('https://server-snapbuy.onrender.com/user/infor', {
           headers: { Authorization: resToken },
         });
 

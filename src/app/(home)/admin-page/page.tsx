@@ -62,10 +62,14 @@ export default function CreateProduct() {
       try {
         const formData = new FormData();
         formData.append('file', file);
-        const userRes = await axios.post('http://localhost:5000/api/upload', formData, {
-          headers: { 'Content-Type': 'multipart/form-data', Authorization: token },
-          withCredentials: true,
-        });
+        const userRes = await axios.post(
+          'https://server-snapbuy.onrender.com/api/upload',
+          formData,
+          {
+            headers: { 'Content-Type': 'multipart/form-data', Authorization: token },
+            withCredentials: true,
+          }
+        );
 
         toast.success('Image Upload Success');
         // setProductDetails({ ...productdetails, images: userRes?.data as ImageProps });
@@ -114,12 +118,16 @@ export default function CreateProduct() {
       setProductCreated(true);
 
       try {
-        await axios.put(`http://localhost:5000/api/products/${productId}`, productdetails, {
-          headers: {
-            Authorization: token,
-          },
-          withCredentials: true,
-        });
+        await axios.put(
+          `https://server-snapbuy.onrender.com/api/products/${productId}`,
+          productdetails,
+          {
+            headers: {
+              Authorization: token,
+            },
+            withCredentials: true,
+          }
+        );
         toast.success('Product Updated Successfully');
       } catch (err) {
         toast.error('Create Update Failed');
@@ -133,7 +141,7 @@ export default function CreateProduct() {
       setProductCreated(true);
 
       try {
-        await axios.post('http://localhost:5000/api/products', productdetails, {
+        await axios.post('https://server-snapbuy.onrender.com/api/products', productdetails, {
           headers: {
             Authorization: token,
           },
@@ -161,7 +169,7 @@ export default function CreateProduct() {
   //   setProductCreated(true);
 
   //   try {
-  //     await axios.put(`http://localhost:5000/api/products/${productId}`, productdetails, {
+  //     await axios.put(`https://server-snapbuy.onrender.com/api/products/${productId}`, productdetails, {
   //       headers: {
   //         Authorization: token,
   //       },

@@ -30,10 +30,13 @@ function CartItem({ item }: any) {
 
   const handleRemoveItem = async (id: any) => {
     try {
-      const res = await axios.delete(`http://localhost:5000/user/remove-from-cart/${id}`, {
-        headers: { Authorization: token },
-        withCredentials: true,
-      });
+      const res = await axios.delete(
+        `https://server-snapbuy.onrender.com/user/remove-from-cart/${id}`,
+        {
+          headers: { Authorization: token },
+          withCredentials: true,
+        }
+      );
       toast.success('Item Removed');
       dispatch(setCart(res?.data?.user?.cart));
       dispatch(setUserInfo(res?.data?.user));
@@ -44,10 +47,14 @@ function CartItem({ item }: any) {
 
   const handleIncreaseItemQTY = async (id: any) => {
     try {
-      const res = await axios.put(`http://localhost:5000/user/increase-quantity/${id}`, null, {
-        headers: { Authorization: token },
-        withCredentials: true,
-      });
+      const res = await axios.put(
+        `https://server-snapbuy.onrender.com/user/increase-quantity/${id}`,
+        null,
+        {
+          headers: { Authorization: token },
+          withCredentials: true,
+        }
+      );
       toast.success('Item Quantity Increased');
       dispatch(setCart(res?.data?.user?.cart));
       dispatch(setUserInfo(res?.data?.user));
@@ -58,10 +65,14 @@ function CartItem({ item }: any) {
 
   const handleDecreaseItemQTY = async (id: any) => {
     try {
-      const res = await axios.put(`http://localhost:5000/user/decrease-quantity/${id}`, null, {
-        headers: { Authorization: token },
-        withCredentials: true,
-      });
+      const res = await axios.put(
+        `https://server-snapbuy.onrender.com/user/decrease-quantity/${id}`,
+        null,
+        {
+          headers: { Authorization: token },
+          withCredentials: true,
+        }
+      );
       toast.success('Item Quantity Decreased');
       dispatch(setCart(res?.data?.user?.cart));
       dispatch(setUserInfo(res?.data?.user));

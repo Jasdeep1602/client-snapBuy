@@ -17,7 +17,7 @@ function CartCount({ totalQuantity }: any) {
 
   const handleCartClear = async () => {
     try {
-      const res = await axios.put(`http://localhost:5000/user/emptycart`, null, {
+      const res = await axios.put(`https://server-snapbuy.onrender.com/user/emptycart`, null, {
         headers: { Authorization: token },
         withCredentials: true,
       });

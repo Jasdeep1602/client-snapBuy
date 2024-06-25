@@ -18,6 +18,7 @@ function Header() {
   const totalQuantity = useAppSelector(selectTotalQuantity);
 
   const { isLogged } = useAppSelector((state) => state.auth);
+  const { userInfo } = useAppSelector((state) => state.products);
 
   const [navState, setNavState] = useState(false);
 
@@ -79,6 +80,20 @@ function Header() {
           />
         </div>
 
+        {isLogged && userInfo?.name ? (
+          <div className="grid items-center mt-5">
+            <p className="animate-text bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent text-sm font-black">
+              Hi, {userInfo?.name}
+            </p>
+          </div>
+        ) : (
+          <div className="grid items-center mt-5">
+            <p className="animate-text bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent text-sm font-black">
+              Hi, Guest
+            </p>
+          </div>
+        )}
+
         <ul className="flex items-center justify-center gap-2">
           {/* <li className="grid items-center">
             <MagnifyingGlassIcon
@@ -90,26 +105,28 @@ function Header() {
               className={`icon-style ${navState && 'text-slate-900 transition-all duration-300'}`}
             />
           </li> */}
-          <li className="grid items-center">
-            <button
-              type="button"
-              className="border-none outline-none active:scale-110 transition-all duration-300 relative"
-              onClick={handleCartOpen}
-            >
-              <ShoppingBagIcon
-                className={`icon-style ${navState && 'text-slate-900 transition-all duration-300'}`}
-              />
-              <div
-                className={`absolute top-4 right-0  shadow w-4 h-4 text-[0.65rem]  loading-tight font-medium rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-all duration-300 ${
-                  navState
-                    ? 'bg-slate-900 text-slate-100 shadow-slate-900'
-                    : 'bg-slate-100 text-slate-900 shadow-slate-100'
-                }`}
+          {isLogged && (
+            <li className="grid items-center">
+              <button
+                type="button"
+                className="border-none outline-none active:scale-110 transition-all duration-300 relative"
+                onClick={handleCartOpen}
               >
-                {totalQuantity}
-              </div>
-            </button>
-          </li>
+                <ShoppingBagIcon
+                  className={`icon-style ${navState && 'text-slate-900 transition-all duration-300'}`}
+                />
+                <div
+                  className={`absolute top-4 right-0  shadow w-4 h-4 text-[0.65rem]  loading-tight font-medium rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-all duration-300 ${
+                    navState
+                      ? 'bg-slate-900 text-slate-100 shadow-slate-900'
+                      : 'bg-slate-100 text-slate-900 shadow-slate-100'
+                  }`}
+                >
+                  {totalQuantity}
+                </div>
+              </button>
+            </li>
+          )}
           <li className="grid items-center">
             <CustomButton
               typeButton="button"

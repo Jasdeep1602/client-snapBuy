@@ -6,14 +6,12 @@ import React, { useState } from 'react';
 import { selectTotalAmount, selectTotalQuantity } from '@/redux/slices/products';
 import axios from 'axios';
 import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
 import CartCount from './CartCount';
 import CartEmpty from './CartEmpty';
 import CartItem from './CartItem';
 import CustomButton from '../CustomButton';
 
 function Cart() {
-  const router = useRouter();
   const { cartToggle, cart } = useAppSelector((state) => state.products);
   const { token } = useAppSelector((state) => state.auth);
 
@@ -26,7 +24,7 @@ function Cart() {
     try {
       setFetchStripe(true);
       const res = await axios.post(
-        'http://localhost:5000/user/checkout-session',
+        'https://server-snapbuy.onrender.com/user/checkout-session',
         { amount: totalAmount },
         {
           headers: { Authorization: token },
@@ -34,7 +32,7 @@ function Cart() {
         }
       );
       if (res?.data?.session?.url) {
-        router.push(res.data.session.url);
+        window.location.href = res.data.session.url;
       }
     } catch (err) {
       toast.error('Checkout Failed');

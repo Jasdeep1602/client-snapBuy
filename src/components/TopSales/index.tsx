@@ -22,7 +22,7 @@ function TopSales({ shoeproducts }: ProductProps) {
       {!isLogged && (
         <div className="grid items-center mt-5">
           <p className="animate-text bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent text-sm font-black">
-            IMP : Login to Buy and Add products to cart!!!
+            IMP : Login to Access cart and add products to it !!!
           </p>
         </div>
       )}

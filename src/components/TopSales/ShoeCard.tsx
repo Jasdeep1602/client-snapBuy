@@ -57,7 +57,7 @@ export default function ShoeCard({
   const handleDelete = async () => {
     setDeleteProduct(true);
     try {
-      await axios.delete(`http://localhost:5000/api/products/${productId}`, {
+      await axios.delete(`https://server-snapbuy.onrender.com/api/products/${productId}`, {
         headers: { Authorization: token },
         withCredentials: true,
       });
@@ -78,7 +78,7 @@ export default function ShoeCard({
     dispatch(setProductId(id));
 
     try {
-      const res = await axios.get(`http://localhost:5000/api/products/${id}`, {
+      const res = await axios.get(`https://server-snapbuy.onrender.com/api/products/${id}`, {
         headers: { Authorization: token },
         withCredentials: true,
       });
@@ -124,10 +124,14 @@ export default function ShoeCard({
     };
     try {
       dispatch(setIsCartFetching(true));
-      const res = await axios.post('http://localhost:5000/user/add-to-cart', itemData, {
-        headers: { Authorization: token },
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        'https://server-snapbuy.onrender.com/user/add-to-cart',
+        itemData,
+        {
+          headers: { Authorization: token },
+          withCredentials: true,
+        }
+      );
 
       toast.success('Item Added to Cart');
       dispatch(setCart(res?.data?.user?.cart));
