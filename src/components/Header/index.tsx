@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 
-import { MagnifyingGlassIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
+import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
@@ -80,11 +80,11 @@ function Header() {
         </div>
 
         <ul className="flex items-center justify-center gap-2">
-          <li className="grid items-center">
+          {/* <li className="grid items-center">
             <MagnifyingGlassIcon
               className={`icon-style ${navState && 'text-slate-900 transition-all duration-300'}`}
             />
-          </li>
+          </li> */}
           {/* <li className="grid items-center">
             <HeartIcon
               className={`icon-style ${navState && 'text-slate-900 transition-all duration-300'}`}

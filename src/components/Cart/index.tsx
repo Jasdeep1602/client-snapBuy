@@ -2,16 +2,46 @@
 
 /* eslint-disable no-underscore-dangle */
 import { useAppSelector } from '@/hooks/redux';
-import React from 'react';
+import React, { useState } from 'react';
 import { selectTotalAmount, selectTotalQuantity } from '@/redux/slices/products';
+import axios from 'axios';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 import CartCount from './CartCount';
 import CartEmpty from './CartEmpty';
 import CartItem from './CartItem';
+import CustomButton from '../CustomButton';
 
 function Cart() {
+  const router = useRouter();
   const { cartToggle, cart } = useAppSelector((state) => state.products);
+  const { token } = useAppSelector((state) => state.auth);
+
   const totalAmount = useAppSelector(selectTotalAmount);
   const totalQuantity = useAppSelector(selectTotalQuantity);
+
+  const [fetchstripe, setFetchStripe] = useState(false);
+
+  const handlePayment = async () => {
+    try {
+      setFetchStripe(true);
+      const res = await axios.post(
+        'http://localhost:5000/user/checkout-session',
+        { amount: totalAmount },
+        {
+          headers: { Authorization: token },
+          withCredentials: true,
+        }
+      );
+      if (res?.data?.session?.url) {
+        router.push(res.data.session.url);
+      }
+    } catch (err) {
+      toast.error('Checkout Failed');
+    } finally {
+      setFetchStripe(false);
+    }
+  };
 
   return (
     <div
@@ -42,9 +72,21 @@ function Cart() {
               </div>
               <div className="grid items-center gap-2">
                 <p className="text-sm font-medium text-center">No Tax Or Shipping Charge</p>
-                <button type="button" className="button-theme bg-theme-cart text-white">
+                {/* <button
+                  type="button"
+                  aria-label="checkout"
+                  className="button-theme bg-theme-cart text-white"
+                  onClick={handlePayment}
+                >
                   Check Out
-                </button>
+                </button> */}
+                <CustomButton
+                  typeButton="button"
+                  text="Check Out"
+                  loadingState={fetchstripe}
+                  className="flex items-center justify-center shrink-0 button-theme bg-theme-cart text-white"
+                  onClick={handlePayment}
+                />
               </div>
             </div>
           </div>
