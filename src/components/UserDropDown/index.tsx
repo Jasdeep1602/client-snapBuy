@@ -12,7 +12,6 @@ export default function UserDropdown() {
   const dispatch = useAppDispatch();
   const { isLogged } = useAppSelector((state) => state.auth);
   const { userInfo } = useAppSelector((state) => state.products);
-  const { name, email } = userInfo;
   const [isOpen, setIsOpen] = useState(false);
   const [isloading, setIsLoading] = useState(false);
 
