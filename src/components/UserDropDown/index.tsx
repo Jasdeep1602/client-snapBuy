@@ -52,7 +52,9 @@ export default function UserDropdown() {
         className={`overflow-hidden flex-shrink-0 object-cover mx-1 ${!isLogged ? 'bg-gray-500' : ' bg-orange-700'} ${isLogged && 'text-white'} justify-center rounded-full relative z-10 flex items-center border border-spacing-2 border-transparent active:border-green-500 hover:border-green-500 active:ring-opacity-40 active:ring-green-300 active:outline-none w-10 h-10`}
         onClick={() => setIsOpen(!isOpen)}
       >
-        {!isLogged ? (
+        {isLogged && userInfo ? (
+          userInfo?.name.charAt(0).toUpperCase()
+        ) : (
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -66,22 +68,20 @@ export default function UserDropdown() {
               d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
             />
           </svg>
-        ) : (
-          name.charAt(0).toUpperCase()
         )}
       </button>
 
       {isOpen && (
         <div className="absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden origin-top-right bg-white rounded-md shadow-xl">
-          {isLogged && (
+          {isLogged && userInfo && (
             <>
               <button
                 type="button"
                 className=" w-full flex items-center p-3 -mt-2 text-sm text-slate-800 transition-colors duration-300 transform hover:bg-gray-100"
               >
                 <div className=" flex flex-col mx-1 justify-center items-start">
-                  <h1 className="text-sm font-semibold text-blue-800">{name}</h1>
-                  <p className="text-sm text-blue-500 ">{email}</p>
+                  <h1 className="text-sm font-semibold text-blue-800">{userInfo?.name}</h1>
+                  <p className="text-sm text-blue-500 ">{userInfo?.email}</p>
                 </div>
               </button>
               <hr className="border-gray-200" />{' '}
